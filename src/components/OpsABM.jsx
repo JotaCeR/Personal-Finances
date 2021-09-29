@@ -7,11 +7,22 @@ export default function ABM() {
             <div>
                 <h3>New Entry</h3>
                 <form>
-                    <input name="reason" type="text" />
-                    <input name="amount" type="number" min="0.1" />
-                    <input name="date" type="date" />
-                    <input name="addition" value="add" type="checkbox" />
-                    <input name="extraction" value="rem" type="checkbox" />
+                    <div>
+                        <h4>Operation:</h4>
+                        <input name="reason" type="text" placeholder="Reason..." />
+                        <input name="amount" type="number" min="0.1" placeholder="Amount..." />
+                    </div>
+                    <div>
+                        <h4>Operation Date:</h4>
+                        <input name="date" type="date" />
+                    </div>
+                    <div>
+                        <h4>Operation Type:</h4>
+                        <label>Addtion</label>
+                        <input name="addition" value="add" type="checkbox" />
+                        <label>Extraction</label>
+                        <input name="extraction" value="rem" type="checkbox" />
+                    </div>
                     <button>Add</button>
                 </form>
             </div>
