@@ -10,10 +10,20 @@ export default function ABM() {
                     <input name="reason" type="text" />
                     <input name="amount" type="number" min="0.1" />
                     <input name="date" type="date" />
-                    <input name="extraction" value="add" type="checkbox" />
-                    <input name="sustraction" value="rem" type="checkbox" />
+                    <input name="addition" value="add" type="checkbox" />
+                    <input name="extraction" value="rem" type="checkbox" />
                     <button>Add</button>
                 </form>
+            </div>
+            <div>
+                <div>
+                    <h4>Last Extractions</h4>
+                    <p>Empty</p>
+                </div>
+                <div>
+                    <h4>Last Additions</h4>
+                    <p>Empty</p>
+                </div>
             </div>
         </div>
     )
