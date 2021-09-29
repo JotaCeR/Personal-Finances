@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
             defaultValue: DataTypes.UUIDV4
         },
         amount: {
-            type: DataTypes.NUMBER
+            type: DataTypes.FLOAT
         },
         date: {
             type: DataTypes.STRING
