@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const server = express()
+const routes = require('./routes/index');
 
 require('./db.js');
 
@@ -20,7 +21,7 @@ server.use((req, res, next) => {
     next();
 });
 
-// server.use('/', routes);
+server.use('/', routes);
 
 // Error catching endware. (Stole from other personal project)
 server.use((err, req, res, next) => {
