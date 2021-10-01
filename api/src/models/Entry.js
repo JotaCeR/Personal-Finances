@@ -3,7 +3,8 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
     sequelize.define('entry', {
         reason: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
         id: {
             type: DataTypes.UUID,
@@ -11,13 +12,16 @@ module.exports = (sequelize) => {
             defaultValue: DataTypes.UUIDV4
         },
         amount: {
-            type: DataTypes.NUMBER
+            type: DataTypes.FLOAT,
+            defaultValue: 1
         },
         date: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
         type: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.ENUM("extraction", "adition"),
+            allowNull: false
         }
     });
 };
