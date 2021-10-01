@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+const axios = require('axios');
 
 export default function Home() {
+    const [balance, setBalance] = useState({
+        adition: 0,
+        extraction: 0
+    });
+
+    // async function getBalance () {
+    //     await axios.get()
+    // }
+
+    // useEffect(() => {
+    //     const balance = getBalance();
+    //     setBalance({...balance})
+    // });
+
     return (
         <div>
             <h1>My Personal Finances App</h1>
