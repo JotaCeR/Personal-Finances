@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from 'react';
-const axios = require('axios');
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBalance, getLastEntries } from '../actions/homeActions';
 
 export default function Home() {
-    const [balance, setBalance] = useState({
-        adition: 0,
-        extraction: 0
-    });
+    const dispatch = useDispatch();
 
-    // async function getBalance () {
-    //     await axios.get()
-    // }
+    let balance = useSelector((state) => state.balance.balance)
+    let entries = useSelector((state) => state.lastEntries.entries);
 
-    // useEffect(() => {
-    //     const balance = getBalance();
-    //     setBalance({...balance})
-    // });
+    useEffect(() => {
+        dispatch(getBalance());
+    }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(getLastEntries());
+    }, [dispatch]);
 
     return (
         <div>
             <h1>My Personal Finances App</h1>
             <div>
                 <h2>Current Balance</h2>
-                <p>0</p>
+                <p>{balance}</p>
             </div>
             <div>
                 <h2>Last Entries</h2>
-                <p>Empty. .  .</p>
+                <ul>
+                    {entries ? entries.map((entry) => {return <li>Reason: {entry.reason}, Amount: {entry.amount}, Date: {entry.date}, Type: {entry.type}</li>}) : <li>No entries found...</li>}
+                </ul>
             </div>
         </div>
     )

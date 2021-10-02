@@ -1,49 +1,38 @@
-const { Entry } = require('../db');
-const sequelize = require('sequelize');
-const { Op } = require('sequelize');
+const toolkit = require('./toolkit');
 
 const getBalance = async (req, res) => {
-    class Balance {
-        constructor (adition, extraction, total) {
-            this.adition = adition,
-            this.extraction = extraction,
-            this.total = total
-        };
-    };
 
-    class EntryJS {
-        constructor (reason, id, amount, date, type) {
-            this.reason = reason,
-            this.id = id,
-            this.amount = amount,
-            this.date = date,
-            this.type = type
-        }
-    }
+    const addAmounts = [];
+    const extAmounts = [];
 
-    const sumVals = (prevVal, curVal) => prevVal.amount + curVal.amount;
+    const countAll = (prev, curr) => prev + curr;
 
     try {
-        const dbEntries = await Entry.findAll();
+        let aditionBalance = await toolkit.aditionEntries();
+        let extractionBalance = await toolkit.extractionEntries();
 
-        let aditionBalance = dbEntries.filter(entry => entry.type == 'adition');
-        let extractionBalance = dbEntries.filter(entry => entry.type == 'extraction');
+        aditionBalance = aditionBalance.map((entry) => {return new toolkit.EntryJS(entry.reason, entry.id, entry.amount, entry.date, entry.type)})
+        extractionBalance = extractionBalance.map((entry) => {return new toolkit.EntryJS(entry.reason, entry.id, entry.amount, entry.date, entry.type)})
 
-        aditionBalance = aditionBalance.map((entry) => {return new EntryJS(entry.reason, entry.id, entry.amount, entry.date, entry.type)})
-        extractionBalance = extractionBalance.map((entry) => {return new EntryJS(entry.reason, entry.id, entry.amount, entry.date, entry.type)})
+        aditionBalance.forEach((entry) => {addAmounts.push(entry.amount)});
+        extractionBalance.forEach((entry) => {extAmounts.push(entry.amount)});
 
-        const totalAditions = aditionBalance.reduce(sumVals);
-        const totalExtractions = extractionBalance.reduce(sumVals);
+        const totalAditions = addAmounts.reduce(countAll);
+        const totalExtractions = extAmounts.reduce(countAll);
         const balance = totalAditions - totalExtractions;
 
-        const finalBalance = new Balance(totalAditions, totalExtractions, balance)
+        const finalBalance = {totalAditions, totalExtractions, balance}
 
-        // console.log(balance);
         // console.log(finalBalance);
+        // console.log(aditionBalance);
+        // console.log(extractionBalance);
+        // console.log(aditionBalance[0].amount);
+        // console.log(totalExtractions);
 
         res.status(200).json(finalBalance)
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(400).send(toolkit.errorMsg)
     };
 };
 

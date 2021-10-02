@@ -83,6 +83,7 @@ export default function EntryForm() {
                     <div>
                         <h4>Operation Type:</h4>
                         <select name="type" value={entry.type} onChange={(e) => handleChange(e)} >
+                            <option value="">-- ---- --</option>
                             <option value="adition">Adition</option>
                             <option value="extraction">Extraction</option>
                         </select>
