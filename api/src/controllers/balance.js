@@ -13,7 +13,10 @@ const getBalance = async (req, res) => {
         }
     }
 
-    const sumVals = (prevVal, curVal) => prevVal.amount + curVal.amount;
+    const addAmounts = [];
+    const extAmounts = [];
+
+    const countAll = (prev, curr) => prev + curr;
 
     try {
         const dbEntries = await Entry.findAll();
@@ -24,20 +27,31 @@ const getBalance = async (req, res) => {
         aditionBalance = aditionBalance.map((entry) => {return new EntryJS(entry.reason, entry.id, entry.amount, entry.date, entry.type)})
         extractionBalance = extractionBalance.map((entry) => {return new EntryJS(entry.reason, entry.id, entry.amount, entry.date, entry.type)})
 
-        const totalAditions = aditionBalance.reduce(sumVals);
-        const totalExtractions = extractionBalance.reduce(sumVals);
+        aditionBalance.forEach((entry) => {addAmounts.push(entry.amount)});
+        extractionBalance.forEach((entry) => {extAmounts.push(entry.amount)});
+
+        const totalAditions = addAmounts.reduce(countAll);
+        const totalExtractions = extAmounts.reduce(countAll);
         const balance = totalAditions - totalExtractions;
 
         const finalBalance = {totalAditions, totalExtractions, balance}
 
-        // console.log(balance);
         // console.log(finalBalance);
+        // console.log(aditionBalance);
+        // console.log(extractionBalance);
+        // console.log(aditionBalance[0].amount);
+        // console.log(totalExtractions);
 
-        console.log(finalBalance)
 
         res.status(200).json(finalBalance)
     } catch (error) {
-        console.log(error)
+        console.log(error);
+
+        const standardResponse = {totalAditions: 0, totalExtractions: 0, balance: 0};
+
+        console.log(standardResponse);
+
+        res.status(400).json(standardResponse)
     };
 };
 

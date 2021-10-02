@@ -9,7 +9,7 @@ const addEntry = async (req, res) => {
             date,
             type
         });
-        // console.log(entry);
+        console.log(entry);
         res.status(201).send(entry);
     } catch (error) {
         console.log(error)
