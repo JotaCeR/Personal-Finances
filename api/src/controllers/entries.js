@@ -16,11 +16,11 @@ const addEntry = async (req, res) => {
         res.status(201).send(entry);
     } catch (error) {
         console.log(error)
+        res.status(400).send(toolkit.errorMsg)
     };
 };
 
 const getLastEntries = async (req, res) => {
-
     try {
         const allEntries = await toolkit.allEntries();
         let dbEntries = toolkit.buildEntries(allEntries);
@@ -37,11 +37,36 @@ const getLastEntries = async (req, res) => {
         
         res.status(201).send(dbEntries);
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(400).send(toolkit.errorMsg);
     };
+};
+
+const getAddEntries = async (req, res) => {
+    try {
+        let dbEntries = await toolkit.aditionEntries();
+        const result = toolkit.buildEntries(dbEntries);
+        res.status(201).send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(toolkit.errorMsg);
+    }
+};
+
+const getExtEntries = async (req, res) => {
+    try {
+        let dbEntries = await toolkit.extractionEntries();
+        const result = toolkit.buildEntries(dbEntries);
+        res.status(201).send(result)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(toolkit.errorMsg);
+    }
 };
 
 module.exports = {
     addEntry,
-    getLastEntries
+    getLastEntries,
+    getAddEntries,
+    getExtEntries
 }

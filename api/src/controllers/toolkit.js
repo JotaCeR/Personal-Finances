@@ -15,13 +15,30 @@ const allEntries = async () => {
     return result;
 };
 
+const aditionEntries = async () => {
+    const rawResult = await allEntries();
+    const result = rawResult.filter(entry => entry.type == 'adition');
+    return result;
+};
+
+const extractionEntries = async () => {
+    const rawResult = await allEntries();
+    const result = rawResult.filter(entry => entry.type == 'extraction');
+    return result;
+};
+
 const buildEntries = (array) => {
     const result = array.map(entry => {return new EntryJS(entry.reason, entry.id, entry.amount, entry.date, entry.type)})
     return result;
-}
+};
+
+const errorMsg = "Something happened. Couldn't acess data or data doesn't exist."
 
 module.exports = {
     EntryJS,
     allEntries,
-    buildEntries
+    buildEntries,
+    aditionEntries,
+    extractionEntries,
+    errorMsg
 }
