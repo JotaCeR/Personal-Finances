@@ -1,4 +1,5 @@
 const { Entry } = require('../db');
+const toolkit = require('./toolkit');
 
 const addEntry = async (req, res) => {
     try {
@@ -18,6 +19,29 @@ const addEntry = async (req, res) => {
     };
 };
 
+const getLastEntries = async (req, res) => {
+
+    try {
+        const allEntries = await toolkit.allEntries();
+        let dbEntries = toolkit.buildEntries(allEntries);
+
+        dbEntries.sort((a, b) => {
+            return new Date(a.date) - new Date(b.date);
+        });
+
+        dbEntries.reverse();
+
+        if (dbEntries.length > 10) {
+            dbEntries = dbEntries.slice(0, 10);
+        }
+        
+        res.status(201).send(dbEntries);
+    } catch (error) {
+        console.log(error)
+    };
+};
+
 module.exports = {
-    addEntry
+    addEntry,
+    getLastEntries
 }

@@ -1,4 +1,3 @@
-const { Entry } = require('../db');
 const toolkit = require('./toolkit');
 
 const getBalance = async (req, res) => {
