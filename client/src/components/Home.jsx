@@ -7,9 +7,15 @@ export default function Home() {
     const dispatch = useDispatch();
 
     let balance = useSelector((state) => state.balance.balance)
+    let entries = useSelector((state) => state.lastEntries.entries);
 
     useEffect(() => {
-        dispatch(balanceActions.getBalance())
+        dispatch(balanceActions.getBalance());
+        // dispatch(balanceActions.getLastEntries());
+    }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(balanceActions.getLastEntries());
     }, [dispatch]);
 
     return (
@@ -22,7 +28,9 @@ export default function Home() {
             </div>
             <div>
                 <h2>Last Entries</h2>
-                <p>Empty. .  .</p>
+                <ul>
+                    {entries ? entries.map((entry) => {return <li>Reason: {entry.reason}, Amount:{entry.amount}, Date: {entry.date}, Type: {entry.type}</li>}) : <li>No entries found...</li>}
+                </ul>
             </div>
         </div>
     )

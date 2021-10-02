@@ -8,6 +8,7 @@ export default function balanceReducer (state = initialState, action) {
     switch (action.type) {
         case 'GET_BALANCE':
             return {
+                ...state,
                 ...action.payload
             }
         default:
