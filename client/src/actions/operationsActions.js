@@ -1,3 +1,5 @@
+// const axios = require('axios');
+
 function getAddEntries () {
     return function(dispatch) {
         return fetch('http://localhost:3001/entries/adition')
@@ -16,7 +18,16 @@ function getExtEntries () {
     }
 };
 
-module.exports = {
+// async function deleteEntry (id) {
+//     try {
+//         const answer = await axios.delete(`http://localhost:3001/entries/delete/${id}`);
+//         return answer.data.msg
+//     } catch (error) {
+//         console.log(error)
+//     }
+// };
+
+export {
     getAddEntries,
     getExtEntries
 };

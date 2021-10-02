@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-const balanceActions = require('../actions/homeActions');
+import { getBalance, getLastEntries } from '../actions/homeActions';
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -9,11 +9,11 @@ export default function Home() {
     let entries = useSelector((state) => state.lastEntries.entries);
 
     useEffect(() => {
-        dispatch(balanceActions.getBalance());
+        dispatch(getBalance());
     }, [dispatch]);
 
     useEffect(() => {
-        dispatch(balanceActions.getLastEntries());
+        dispatch(getLastEntries());
     }, [dispatch]);
 
     return (

@@ -16,7 +16,7 @@ function getLastEntries () {
     }
 };
 
-module.exports = {
+export {
     getBalance,
     getLastEntries
 }

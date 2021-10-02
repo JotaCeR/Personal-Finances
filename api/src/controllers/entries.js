@@ -1,5 +1,6 @@
 const { Entry } = require('../db');
 const toolkit = require('./toolkit');
+const { Op } = require('sequelize');
 
 const addEntry = async (req, res) => {
     try {
@@ -64,9 +65,26 @@ const getExtEntries = async (req, res) => {
     }
 };
 
+const deleteEntry = async (req, res) => {
+    try {
+        const { id } = req.params
+        await Entry.destroy({where: {
+            id: {
+                [Op.eq]: id
+            }
+        }});
+
+        res.status(200).json({msg: "Entry deleted succesfully"})
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(toolkit.errorMsg)
+    }
+}
+
 module.exports = {
     addEntry,
     getLastEntries,
     getAddEntries,
-    getExtEntries
+    getExtEntries,
+    deleteEntry
 }
