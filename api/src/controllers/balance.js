@@ -3,14 +3,6 @@ const sequelize = require('sequelize');
 const { Op } = require('sequelize');
 
 const getBalance = async (req, res) => {
-    class Balance {
-        constructor (adition, extraction, total) {
-            this.adition = adition,
-            this.extraction = extraction,
-            this.total = total
-        };
-    };
-
     class EntryJS {
         constructor (reason, id, amount, date, type) {
             this.reason = reason,
@@ -36,10 +28,12 @@ const getBalance = async (req, res) => {
         const totalExtractions = extractionBalance.reduce(sumVals);
         const balance = totalAditions - totalExtractions;
 
-        const finalBalance = new Balance(totalAditions, totalExtractions, balance)
+        const finalBalance = {totalAditions, totalExtractions, balance}
 
         // console.log(balance);
         // console.log(finalBalance);
+
+        console.log(finalBalance)
 
         res.status(200).json(finalBalance)
     } catch (error) {
