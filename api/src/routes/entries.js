@@ -7,15 +7,15 @@ const router = Router();
 router.get('/last', entryController.getLastEntries);
 
 // get addition entries route
-router.get('/adition', entryController.getAddEntries);
+// router.get('/adition', entryController.getAddEntries);
 
 // get extraction entries route
-router.get('/extraction', entryController.getExtEntries);
+// router.get('/extraction', entryController.getExtEntries);
 
 // post new Entry route
 router.post('/', entryController.addEntry);
 
 // delete old Entry route
-router.delete('/delete/:id', entryController.deleteEntry);
+// router.delete('/delete/:id', entryController.deleteEntry);
 
 module.exports = router;

@@ -3,32 +3,24 @@ const axios = require('axios');
 
 export default function EntryForm() {
     const [entry, setEntry] = useState({
-        reason: "",
+        reason: null,
         amount: 0,
-        date: "",
-        type: ""
+        date: new Date(),
+        type: null
     });
 
     const [errors, setErrors] = useState({
-        reason: "Please add the reason of the entry.",
         amount: "Please especify a positive amount for the entry.",
-        date: "Please choose a valid date for the entry.",
         type: "Please, choose if the entry is a substraction or adition."
     });
     
     function validateEntry (entry) {
         let errors = {};
 
-        if (entry.reason === "") {
-                errors.reason = "Please add the reason of the entry."
-        };
         if (entry.amount <= 0) {
                 errors.amount = "Please especify a positive amount for the entry."
         };
-        if (entry.date === "") {
-                errors.date = "Please choose a valid date for the entry."
-        };
-        if (entry.type === "") {
+        if (entry.type === null) {
                 errors.type = "Please, choose if the entry is a substraction or adition."
         };
 
@@ -38,7 +30,7 @@ export default function EntryForm() {
     function handleChange (e) {
         e.preventDefault();
 
-        setErrors(validateEntry({...entry, [e.target.name]: e.target.value}))
+        setErrors(validateEntry({...entry, [e.target.name]: e.target.value}));
 
         setEntry((entry) => ({
             ...entry,
@@ -69,6 +61,12 @@ export default function EntryForm() {
                 <h3>New Entry</h3>
                 <form onSubmit={(e) => {
                     e.preventDefault();
+                    
+                    setEntry((entry) => ({
+                        ...entry,
+                        date: new Date(entry.date)
+                    }));
+
                     addEntry(entry);
                 }}>
                     <div>

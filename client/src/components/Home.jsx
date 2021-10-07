@@ -26,7 +26,7 @@ export default function Home() {
             <div>
                 <h2>Last Entries</h2>
                 <ul>
-                    {entries ? entries.map((entry) => {return <li>Reason: {entry.reason}, Amount: {entry.amount}, Date: {entry.date}, Type: {entry.type}</li>}) : <li>No entries found...</li>}
+                    {Array.isArray(entries) ? entries.map((entry) => {return <li>Reason: {entry.reason}, Amount: {entry.amount}, Date: {entry.date}, Type: {entry.type}</li>}) : <li>{entries}</li>}
                 </ul>
             </div>
         </div>

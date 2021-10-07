@@ -1,4 +1,4 @@
-const { Entry } = require('../db')
+const { Entry } = require('./db')
 
 class EntryJS {
     constructor (reason, id, amount, date, type) {
@@ -32,7 +32,11 @@ const buildEntries = (array) => {
     return result;
 };
 
-const errorMsg = "Something happened. Couldn't acess data or data doesn't exist."
+const messages = {
+    error: "Something happened. Couldn't acess data or data doesn't exist.",
+    conCall: "Controller calling Service...",
+    servCall: "Service calling DAO..."
+};
 
 module.exports = {
     EntryJS,
@@ -40,5 +44,5 @@ module.exports = {
     buildEntries,
     aditionEntries,
     extractionEntries,
-    errorMsg
+    messages
 }
