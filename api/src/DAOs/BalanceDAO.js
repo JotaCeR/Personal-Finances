@@ -6,13 +6,13 @@ const { Op } = require('sequelize');
 class BalanceDAO {
     async getBalance () {
         try {
-            const adds = await Entry.sum('amount', { where: { type: { [Op.eq]: 'adition' } } });
+            const [adds, metadata1] = await db.query("SELECT SUM(amount) FROM entry WHERE type='adition'");
             console.log(JSON.stringify(adds));
             
-            const extrs = await Entry.sum('amount', { where: { type: { [Op.eq]: 'extraction' } } });
+            const [extrs, metadata2] = await db.query("SELECT SUM(amount) FROM entry WHERE type='extraction'");
             console.log(JSON.stringify(extrs));
             
-            const balance = adds - extrs;
+            const balance = adds[0].sum - extrs[0].sum;
             console.log(JSON.stringify(balance));
             
             return {balance}

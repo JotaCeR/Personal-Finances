@@ -3,9 +3,14 @@ const toolkit = require('../toolkit');
 
 class EntryService {
     async createEntry({reason, amount, date, type}) {
-        const entry = {reason, amount, date, type};
-        console.log(toolkit.messages.servCall);
-        return await EntryDAO.createEntry(entry);
+        try {
+            const entry = {reason, amount, date, type};
+            console.log(toolkit.messages.servCall);
+            return await EntryDAO.createEntry(entry);
+        } catch (e) {
+            console.error(e);
+            return toolkit.messages.error;
+        }
     }
 
     async getLastEntries() {
