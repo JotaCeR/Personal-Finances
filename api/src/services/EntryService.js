@@ -23,6 +23,11 @@ class EntryService {
         }
     }
 
+    async modifyEntry(entry) {
+        console.log(toolkit.messages.servCall);
+        return await EntryDAO.modifyEntry(entry);
+    }
+
     async deleteEntry(id) {
         try {
             console.log(toolkit.messages.servCall);

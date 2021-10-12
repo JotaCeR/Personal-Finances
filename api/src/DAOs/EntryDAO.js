@@ -26,11 +26,25 @@ class EntryDAO {
         };
     }
 
+    async modifyEntry(entry) {
+        try {
+            const updatingEntry = Object.entries(entry);
+
+            for (let i = 1; i < updatingEntry.length; i++) {
+                await db.query(`UPDATE entry SET ${updatingEntry[i][0]}='${updatingEntry[i][1]}' WHERE id='${entry.id}'`);
+            };
+
+            return "Entry updated successfully.";
+        } catch (e) {
+            console.error(e);
+            return toolkit.messages.error;
+        }
+    }
+
     async deleteEntry(id) {
         try {
-            const [deletedEntry, metadata] = await db.query(`DELETE FROM entry WHERE id='${id}'`);
-            console.log(JSON.stringify(deletedEntry));
-            return deletedEntry;
+            await db.query(`DELETE FROM entry WHERE id='${id}'`);
+            return "Entry deleted succesfully.";
         } catch (e) {
             console.error(e);
             return toolkit.messages.error;

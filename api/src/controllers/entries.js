@@ -47,6 +47,17 @@ const getExtEntries = async (req, res) => {
     }
 };
 
+const modifyEntry = async (req, res) => {
+    try {
+        const entry = req.body.entry;
+        await EntryService.modifyEntry(entry);
+        res.status(200).json("Entry update successfully");
+    } catch (e) {
+        console.error(e);
+        res.status(400).send(toolkit.messages.error);
+    }
+}
+
 const deleteEntry = async (req, res) => {
     try {
         const { id } = req.params
@@ -63,5 +74,6 @@ module.exports = {
     getLastEntries,
     getAddEntries,
     getExtEntries,
+    modifyEntry,
     deleteEntry
 }
