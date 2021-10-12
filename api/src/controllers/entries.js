@@ -1,4 +1,5 @@
 const EntryService = require('../services/EntryService');
+const BalanceService = require('../services/BalanceService');
 const toolkit = require('../toolkit');
 const { Op } = require('sequelize');
 
@@ -24,27 +25,27 @@ const getLastEntries = async (req, res) => {
     };
 };
 
-// const getAddEntries = async (req, res) => {
-//     try {
-//         let dbEntries = await toolkit.aditionEntries();
-//         const result = toolkit.buildEntries(dbEntries);
-//         res.status(201).send(result)
-//     } catch (error) {
-//         console.log(error);
-//         res.status(400).send(toolkit.errorMsg);
-//     }
-// };
+const getAddEntries = async (req, res) => {
+    try {
+        console.log(toolkit.messages.conCall);
+        const result = await BalanceService.getAditions();
+        res.status(200).send(result);
+    } catch (error) {
+        console.error(error);
+        res.status(400).send(toolkit.messages.error);
+    }
+};
 
-// const getExtEntries = async (req, res) => {
-//     try {
-//         let dbEntries = await toolkit.extractionEntries();
-//         const result = toolkit.buildEntries(dbEntries);
-//         res.status(201).send(result)
-//     } catch (error) {
-//         console.log(error);
-//         res.status(400).send(toolkit.errorMsg);
-//     }
-// };
+const getExtEntries = async (req, res) => {
+    try {
+        console.log(toolkit.messages.conCall);
+        const result = await BalanceService.getExtractions();
+        res.status(200).send(result);
+    } catch (error) {
+        console.error(error);
+        res.status(400).send(toolkit.messages.error);
+    }
+};
 
 // const deleteEntry = async (req, res) => {
 //     try {
@@ -64,5 +65,7 @@ const getLastEntries = async (req, res) => {
 
 module.exports = {
     addEntry,
-    getLastEntries
+    getLastEntries,
+    getAddEntries,
+    getExtEntries
 }
