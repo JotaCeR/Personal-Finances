@@ -26,12 +26,12 @@ class EntryDAO {
         };
     }
 
-    async modifyEntry(entry) {
+    async modifyEntry(id, entry) {
         try {
             const updatingEntry = Object.entries(entry);
 
-            for (let i = 1; i < updatingEntry.length; i++) {
-                await db.query(`UPDATE entry SET ${updatingEntry[i][0]}='${updatingEntry[i][1]}' WHERE id='${entry.id}'`);
+            for (let i = 0; i < updatingEntry.length; i++) {
+                await db.query(`UPDATE entry SET ${updatingEntry[i][0]}='${updatingEntry[i][1]}' WHERE id='${id}'`);
             };
 
             return "Entry updated successfully.";

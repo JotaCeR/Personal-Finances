@@ -49,8 +49,10 @@ const getExtEntries = async (req, res) => {
 
 const modifyEntry = async (req, res) => {
     try {
-        const entry = req.body.entry;
-        await EntryService.modifyEntry(entry);
+        const entry = req.body;
+        const { id } = req.params;
+        console.log(entry)
+        await EntryService.modifyEntry(id, entry);
         res.status(200).json("Entry update successfully");
     } catch (e) {
         console.error(e);
