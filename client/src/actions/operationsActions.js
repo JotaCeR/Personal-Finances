@@ -18,16 +18,18 @@ function getExtEntries () {
     }
 };
 
-// async function deleteEntry (id) {
-//     try {
-//         const answer = await axios.delete(`http://localhost:3001/entries/delete/${id}`);
-//         return answer.data.msg
-//     } catch (error) {
-//         console.log(error)
-//     }
-// };
+function getEditForm (entry) {
+    return function(dispatch) {
+        try {
+            dispatch({type: 'GET_EDENT', payload: entry})
+        } catch (e) {
+        console.error(e);
+        }
+    }
+};
 
 export {
     getAddEntries,
-    getExtEntries
+    getExtEntries,
+    getEditForm
 };
