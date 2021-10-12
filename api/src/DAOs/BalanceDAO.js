@@ -23,7 +23,7 @@ class BalanceDAO {
 
     async getAditions () {
         try {
-            const [adds, metadata] = await db.query("SELECT * FROM entry WHERE type='adition'");
+            const [adds, metadata] = await db.query("SELECT * FROM entry WHERE type='adition' ORDER BY date DESC");
             console.log('The aditions entries are:', JSON.stringify(adds));
 
             return adds;
@@ -35,7 +35,7 @@ class BalanceDAO {
 
     async getExtractions () {
         try {
-            const [extrs, metadata] = await db.query("SELECT * FROM entry WHERE type='extraction'");
+            const [extrs, metadata] = await db.query("SELECT * FROM entry WHERE type='extraction' ORDER BY date DESC");
             console.log('The extractions entries are:', JSON.stringify(extrs));
 
             return extrs;
