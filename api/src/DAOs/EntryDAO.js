@@ -25,6 +25,17 @@ class EntryDAO {
             return toolkit.messages.error;
         };
     }
+
+    async deleteEntry(id) {
+        try {
+            const [deletedEntry, metadata] = await db.query(`DELETE FROM entry WHERE id='${id}'`);
+            console.log(JSON.stringify(deletedEntry));
+            return deletedEntry;
+        } catch (e) {
+            console.error(e);
+            return toolkit.messages.error;
+        };
+    }
 }
 
 module.exports = new EntryDAO();

@@ -47,25 +47,21 @@ const getExtEntries = async (req, res) => {
     }
 };
 
-// const deleteEntry = async (req, res) => {
-//     try {
-//         const { id } = req.params
-//         await Entry.destroy({where: {
-//             id: {
-//                 [Op.eq]: id
-//             }
-//         }});
-
-//         res.status(200).json({msg: "Entry deleted succesfully"})
-//     } catch (error) {
-//         console.log(error);
-//         res.status(400).send(toolkit.errorMsg)
-//     }
-// }
+const deleteEntry = async (req, res) => {
+    try {
+        const { id } = req.params
+        const deletedEntry = await EntryService.deleteEntry(id);
+        res.status(200).json(deletedEntry);
+    } catch (error) {
+        console.error(error);
+        res.status(400).send(toolkit.messages.error);
+    }
+}
 
 module.exports = {
     addEntry,
     getLastEntries,
     getAddEntries,
-    getExtEntries
+    getExtEntries,
+    deleteEntry
 }

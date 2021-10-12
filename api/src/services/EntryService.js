@@ -22,6 +22,16 @@ class EntryService {
             return toolkit.messages.error;
         }
     }
+
+    async deleteEntry(id) {
+        try {
+            console.log(toolkit.messages.servCall);
+            return await EntryDAO.deleteEntry(id);
+        } catch (e) {
+            console.error(e);
+            return toolkit.messages.error;
+        }
+    }
 };
 
 module.exports = new EntryService();

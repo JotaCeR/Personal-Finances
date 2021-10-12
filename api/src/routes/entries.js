@@ -15,7 +15,7 @@ router.get('/extraction', entryController.getExtEntries);
 // post new Entry route
 router.post('/', entryController.addEntry);
 
-// delete old Entry route
-// router.delete('/delete/:id', entryController.deleteEntry);
+// delete existing Entry route
+router.delete('/delete/:id', entryController.deleteEntry);
 
 module.exports = router;
