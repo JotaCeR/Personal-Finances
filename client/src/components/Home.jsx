@@ -16,6 +16,9 @@ export default function Home() {
         dispatch(getLastEntries());
     }, [dispatch]);
 
+    useEffect(() => {}, [balance]);
+    useEffect(() => {}, [entries]);
+
     return (
         <div>
             <h1>My Personal Finances App</h1>

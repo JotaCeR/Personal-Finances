@@ -14,7 +14,8 @@ export default function ABM() {
 
     useEffect(() => {
         dispatch(getAddEntries());
-    }, [dispatch]); 
+    }, [dispatch]);
+
 
     useEffect(() => {
         dispatch(getExtEntries());
@@ -25,17 +26,17 @@ export default function ABM() {
             <h1>ABM Operations</h1>
             <EntryForm />
             <div>
-                {editingEntry ? <EditForm id={editingEntry.id} reason={editingEntry.reason} amount={editingEntry.amount} date={editingEntry.date} /> : null}
+                {editingEntry ? <EditForm id={editingEntry.id} reason={editingEntry.reason} amount={editingEntry.amount} date={editingEntry.date} type={editingEntry.type} /> : null}
                 <div>
                     <h4>Extractions Histoy</h4>
                     <ul>
-                        {extEntries ? extEntries.map((entry) => {return <ListItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} />}) : "Empty..."}
+                        {extEntries ? extEntries.map((entry) => {return <ListItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} />}) : "Empty..."}
                     </ul>
                 </div>
                 <div>
                     <h4>Additions Histoy</h4>
                     <ul>
-                        {addEntries ? addEntries.map((entry) => {return <ListItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} />}) : "Empty..."}
+                        {addEntries ? addEntries.map((entry) => {return <ListItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} />}) : "Empty..."}
                     </ul>
                 </div>
             </div>

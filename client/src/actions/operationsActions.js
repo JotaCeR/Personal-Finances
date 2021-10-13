@@ -28,8 +28,18 @@ function getEditForm (entry) {
     }
 };
 
+function updateEntries (params) {    
+    return function(dispatch) {
+        return fetch(`http://localhost:3001/entries/${params.query}`)
+        .then(response => response.json())
+        .then(json => dispatch({type: params.type, paryload: json}))
+        .catch(error => console.error(error));
+    }
+};
+
 export {
     getAddEntries,
     getExtEntries,
-    getEditForm
+    getEditForm,
+    updateEntries
 };

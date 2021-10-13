@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getAddEntries, getExtEntries } from '../actions/operationsActions';
 const axios = require('axios');
 
 export default function EntryForm() {
@@ -13,6 +15,8 @@ export default function EntryForm() {
         amount: "Please especify a positive amount for the entry.",
         type: "Please, choose if the entry is a substraction or adition."
     });
+
+    const dispatch = useDispatch();
     
     function validateEntry (entry) {
         let errors = {};
@@ -43,7 +47,18 @@ export default function EntryForm() {
             method: 'post',
             url: 'http://localhost:3001/entries',
             data: entry
-        })
+        });
+
+        dispatch(getAddEntries());
+        dispatch(getExtEntries());
+
+        setEntry((entry) => ({
+            ...entry,
+            reason: null,
+            amount: 0,
+            date: new Date(),
+            type: null
+        }));
     };
 
     function validateButton(errors) {
