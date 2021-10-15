@@ -87,7 +87,7 @@ export default function EntryForm() {
                     <div>
                         <h4>Operation:</h4>
                         <input name="reason" type="text" placeholder="Reason..." value={entry.reason} onChange={(e) => handleChange(e)} />
-                        <input name="amount" type="number" min="1" placeholder="Amount..." value={entry.amount} onChange={(e) => handleChange(e)} />
+                        <input name="amount" type="number" min="0" step="0.01" placeholder="Amount..." value={entry.amount} onChange={(e) => handleChange(e)} />
                     </div>
                     <div>
                         <h4>Operation Date:</h4>
