@@ -18,8 +18,8 @@ async function connectionDB () {
         console.log("Checking Database tables...");
         await entryTable();
         await categoryTable();
-        console.log("Closing PostgreSQL Database connection...");
-        db.end();
+        // db.end();
+        // console.log("Closing PostgreSQL Database connection...");
     } catch (e) {
         console.error(e);
     };

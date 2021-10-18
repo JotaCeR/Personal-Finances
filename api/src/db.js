@@ -3,7 +3,7 @@ require('dotenv').config();
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 // DB server connection.
 const { Pool } = require('pg');
-const connString = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/personal_finances`;
+// const connString = `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/personal_finances`;
 
 const db = new Pool({
     user: DB_USER,

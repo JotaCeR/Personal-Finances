@@ -1,12 +1,17 @@
-const Entry = require('./models/Entry');
 const db = require('../db');
 const toolkit = require('../toolkit');
 
 class EntryDAO {
+    constructor () {
+        this.addEntryQuery = "INSERT INTO entries(reason, amount, date, type) VALUES($1, $2, $3, $4)";
+    }
+
     async createEntry(entry) {
-        const dbEntry = await Entry.create(entry);
-        console.log(dbEntry.toJSON());
-        return dbEntry
+        const {reason, amount, date, type} = entry;
+        const values = [reason, amount, date, type]
+        const dbEntry = await db.query(this.addEntryQuery, values);
+        console.log(dbEntry);
+        return dbEntry;
     }
 
     async getLastEntries() {

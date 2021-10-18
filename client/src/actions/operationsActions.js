@@ -2,7 +2,7 @@
 
 function getAddEntries () {
     return function(dispatch) {
-        return fetch('http://localhost:3001/entries/adition')
+        return fetch('http://localhost:3001/entries/aditions')
         .then(response => response.json())
         .then(json => dispatch({type: 'GET_ADD', payload: json}))
         .catch(error => console.log(error));
@@ -11,7 +11,7 @@ function getAddEntries () {
 
 function getExtEntries () {
     return function(dispatch) {
-        return fetch('http://localhost:3001/entries/extraction')
+        return fetch('http://localhost:3001/entries/extractions')
         .then(response => response.json())
         .then(json => dispatch({type: 'GET_EXT', payload: json}))
         .catch(error => console.log(error));

@@ -7,13 +7,13 @@ const router = Router();
 router.get('/last', entryController.getLastEntries);
 
 // get addition entries route
-router.get('/adition', entryController.getAddEntries);
+router.get('/aditions', entryController.getAddEntries);
 
 // get extraction entries route
-router.get('/extraction', entryController.getExtEntries);
+router.get('/extractions', entryController.getExtEntries);
 
 // post new Entry route
-router.post('/', entryController.addEntry);
+router.post('/new', entryController.addEntry);
 
 // put existing Entry route
 router.put('/update/:id', entryController.modifyEntry);

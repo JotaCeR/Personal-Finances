@@ -7,7 +7,7 @@ export default function EntryForm() {
     const [entry, setEntry] = useState({
         reason: null,
         amount: 0,
-        date: new Date(),
+        date: null,
         type: null
     });
 
@@ -36,16 +36,23 @@ export default function EntryForm() {
 
         setErrors(validateEntry({...entry, [e.target.name]: e.target.value}));
 
-        setEntry((entry) => ({
-            ...entry,
-            [e.target.name]: e.target.value
-        }));
+        if (e.target.name !== 'date') {
+            setEntry((entry) => ({
+                ...entry,
+                [e.target.name]: e.target.value
+            }));
+        } else {
+            setEntry((entry) => ({
+                ...entry,
+                [e.target.name]: new Date(e.target.value)
+            }))
+        }
     };
 
     async function addEntry (entry) {
         await axios({
             method: 'post',
-            url: 'http://localhost:3001/entries',
+            url: 'http://localhost:3001/entries/new',
             data: entry
         });
 
@@ -56,7 +63,7 @@ export default function EntryForm() {
             ...entry,
             reason: null,
             amount: 0,
-            date: new Date(),
+            date: null,
             type: null
         }));
     };

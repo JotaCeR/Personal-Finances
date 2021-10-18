@@ -27,7 +27,7 @@ class BalanceDAO {
         }
     }
 
-    async addEntries () {
+    async getAditions () {
         try {
             return await db.query(this.addEntriesOrderedQuery);
         } catch (e) {
@@ -36,7 +36,7 @@ class BalanceDAO {
         }
     }
 
-    async extEntries() {
+    async getExtractions() {
         try {
             return await db.query(this.extEntriesOrderedQuery);
         } catch (e) {
