@@ -3,7 +3,12 @@ const db = require('../../db');
 async function buildEntry () {
     const queryText = `
     CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+    
+    DO $$
+    BEGIN IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'cash_flow') THEN
     CREATE TYPE cash_flow AS ENUM ('adition', 'extraction');
+    END IF;
+    END $$;
 
     CREATE TABLE IF NOT EXISTS entries (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

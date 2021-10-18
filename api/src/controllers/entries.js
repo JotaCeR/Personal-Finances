@@ -1,49 +1,48 @@
 const EntryService = require('../services/EntryService');
 const BalanceService = require('../services/BalanceService');
 const toolkit = require('../toolkit');
-const { Op } = require('sequelize');
 
 const addEntry = async (req, res) => {
     try {
-        console.log(toolkit.messages.conCall);
+        console.log(toolkit.conCall);
         await EntryService.createEntry(req.body);
         res.status(201).send("¡Entry successfully saved on DataBase!");
     } catch (error) {
         console.error(error);
-        res.status(400).send(toolkit.messages.error);
+        res.status(400).send(toolkit.error);
     };
 };
 
 const getLastEntries = async (req, res) => {
     try {
-        console.log(toolkit.messages.conCall);
+        console.log(toolkit.conCall);
         const lastEntries = await EntryService.getLastEntries();
         res.status(200).json(lastEntries);
     } catch (error) {
         console.error(error);
-        res.status(409).json(toolkit.messages.error);
+        res.status(409).json(toolkit.error);
     };
 };
 
 const getAddEntries = async (req, res) => {
     try {
-        console.log(toolkit.messages.conCall);
+        console.log(toolkit.conCall);
         const result = await BalanceService.getAditions();
         res.status(200).send(result);
     } catch (error) {
         console.error(error);
-        res.status(400).send(toolkit.messages.error);
+        res.status(400).send(toolkit.error);
     }
 };
 
 const getExtEntries = async (req, res) => {
     try {
-        console.log(toolkit.messages.conCall);
+        console.log(toolkit.conCall);
         const result = await BalanceService.getExtractions();
         res.status(200).send(result);
     } catch (error) {
         console.error(error);
-        res.status(400).send(toolkit.messages.error);
+        res.status(400).send(toolkit.error);
     }
 };
 
@@ -56,7 +55,7 @@ const modifyEntry = async (req, res) => {
         res.status(200).json("Entry update successfully");
     } catch (e) {
         console.error(e);
-        res.status(400).send(toolkit.messages.error);
+        res.status(400).send(toolkit.error);
     }
 }
 
@@ -67,7 +66,7 @@ const deleteEntry = async (req, res) => {
         res.status(200).json(deletedEntry);
     } catch (error) {
         console.error(error);
-        res.status(400).send(toolkit.messages.error);
+        res.status(400).send(toolkit.error);
     }
 }
 
