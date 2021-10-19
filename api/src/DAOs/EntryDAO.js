@@ -4,9 +4,9 @@ const toolkit = require('../toolkit');
 class EntryDAO {
     constructor () {
         this.addEntryQuery = "INSERT INTO entries(reason, amount, date, type) VALUES($1, $2, $3, $4)";
-        this.selectLastTen = "SELECT * FROM entry ORDER BY date DESC FETCH FIRST 10 ROWS ONLY";
-        this.updateEntry = "UPDATE entry SET $1='$2' WHERE id='$3'";
-        this.deleteEntryById = "DELETE FROM entry WHERE id='$1'"
+        this.selectLastTen = "SELECT * FROM entries ORDER BY date DESC FETCH FIRST 10 ROWS ONLY";
+        this.updateEntry = "UPDATE entries SET $1=$2 WHERE id=$3";
+        this.deleteEntryById = "DELETE FROM entries WHERE id=$1"
     }
 
     async createEntry(entry) {
@@ -35,9 +35,10 @@ class EntryDAO {
 
     async modifyEntry(id, entry) {
         try {
-            const values = [id];
-
-            await db.query(this.UpdateEntry);
+            for (let i = 0; i < entry.length; i++) {
+                const values = [entry[i][0], entry[i][1], id];
+                await db.query(this.UpdateEntry, values);
+            }
 
             return "Entry updated successfully.";
         } catch (e) {

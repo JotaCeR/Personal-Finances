@@ -36,17 +36,10 @@ export default function EntryForm() {
 
         setErrors(validateEntry({...entry, [e.target.name]: e.target.value}));
 
-        if (e.target.name !== 'date') {
-            setEntry((entry) => ({
-                ...entry,
-                [e.target.name]: e.target.value
-            }));
-        } else {
-            setEntry((entry) => ({
-                ...entry,
-                [e.target.name]: new Date(e.target.value)
-            }))
-        }
+        setEntry((entry) => ({
+            ...entry,
+            [e.target.name]: e.target.value
+        }));
     };
 
     async function addEntry (entry) {

@@ -20,7 +20,8 @@ async function buildEntry () {
     `;
     
     const res = await db.query(queryText);
-    console.log(JSON.stringify(res));
+    // console.log(JSON.stringify(res));
+    console.log("Entries successfully built!");
 };
 
 module.exports = buildEntry;

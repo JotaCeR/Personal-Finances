@@ -6,13 +6,18 @@ class BalanceService {
     async getBalance () {
         try {
             console.log(toolkit.servCall);
-            const aditions = await BalanceDAO.getAditionsSum();
-            const extractions = await BalanceDAO.getExtractionsSum();
-            const balance = aditions - extractions;
-            console.log(aditions);
-            console.log(extractions);
+            const holdAditions = await BalanceDAO.getAditionsSum();
+            const holdExtractions = await BalanceDAO.getExtractionsSum();
+            const aditions = holdAditions.rows[0];
+            const extractions = holdExtractions.rows[0];
+            const balance = {
+                totalAditions: aditions.sum,
+                totalExtractions: extractions.sum,
+                balance: aditions.sum - extractions.sum
+            }
             console.log(balance);
             return balance;
+            // return "Problem still here!"
         } catch (e) {
             console.error(e);
             return toolkit.error;

@@ -11,7 +11,8 @@ async function buildCategory () {
     `;
     
     const res = await db.query(queryText);
-    console.log(JSON.stringify(res));
+    // console.log(JSON.stringify(res));
+    console.log("Categories successfully built!")
 };
 
 module.exports = buildCategory;

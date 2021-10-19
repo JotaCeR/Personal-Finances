@@ -3,15 +3,16 @@ const toolkit = require('../toolkit');
 
 class BalanceDAO {
     constructor() {
-        this.addSumQuery = "SELECT SUM(amount) FROM entry WHERE type='adition'";
-        this.extSumQuery = "SELECT SUM(amount) FROM entry WHERE type='extraction'";
-        this.addEntriesOrderedQuery = "SELECT * FROM entry WHERE type='adition' ORDER BY date DESC";
-        this.extEntriesOrderedQuery = "SELECT * FROM entry WHERE type='extraction' ORDER BY date DESC";
+        this.addSumQuery = "SELECT SUM(amount) FROM entries WHERE type='adition'";
+        this.extSumQuery = "SELECT SUM(amount) FROM entries WHERE type='extraction'";
+        this.addEntriesOrderedQuery = "SELECT * FROM entries WHERE type='adition' ORDER BY date DESC";
+        this.extEntriesOrderedQuery = "SELECT * FROM entries WHERE type='extraction' ORDER BY date DESC";
     }
 
     async getAditionsSum () {
         try {
-            return await db.query(this.addSumQuery);
+            const adds = await db.query(this.addSumQuery);
+            return adds;
         } catch (e) {
             console.error(e);
             return toolkit.error
@@ -20,7 +21,8 @@ class BalanceDAO {
 
     async getExtractionsSum () {
         try {
-            return await db.query(this.extSumQuery);
+            const exts = await db.query(this.extSumQuery);
+            return exts;
         } catch (e) {
             console.error(e);
             return toolkit.error

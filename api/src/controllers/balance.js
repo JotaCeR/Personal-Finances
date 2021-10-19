@@ -8,7 +8,7 @@ const getBalance = async (req, res) => {
         res.status(201).json(totalBalance);
     } catch (error) {
         console.error(error);
-        res.status(409).json(toolkit.messages.error);
+        res.status(409).json(toolkit.error);
     };
 };
 
