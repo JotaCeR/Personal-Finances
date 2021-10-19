@@ -12,20 +12,25 @@ class EntryDAO {
         this.deleteEntryById = "DELETE FROM entries WHERE id=$1"
     }
 
-    async createEntry(entry) {
+    async createEntry(entry, keys) {
         const values = [];
         
         for (const prop in entry) {
+            console.log(prop)
             values.push(entry[prop])
         };
 
-        if (values.includes("reason") && values.includes("date")) {
+        console.log(values);
+        console.log(keys.includes('reason'));
+        console.log(keys.includes('date'));
+
+        if (keys.includes('reason') && keys.includes('date')) {
             await db.query(this.addFullEntryQuery, values);
             return "New Entry added successfully!"
-        } else if (values.includes("reason" && !values.includes("date"))) {
+        } else if (keys.includes('reason') && !keys.includes('date')) {
             await db.query(this.addReasonEntryQuery, values);
             return "New Entry added successfully!"
-        } else if (values.includes("date") && !values.includes("reason")) {
+        } else if (keys.includes('date') && !keys.includes('reason')) {
             await db.query(this.addDateEntryQuery, values);
             return "New Entry added successfully!"
         } else {

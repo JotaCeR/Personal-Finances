@@ -15,9 +15,11 @@ class EntryService {
                 }
             };
 
-            console.log(builtEntry);
+            const entryKeys = Object.keys(builtEntry)
 
-            return await EntryDAO.createEntry(builtEntry);
+            console.log(builtEntry, entryKeys);
+
+            return await EntryDAO.createEntry(builtEntry, entryKeys);
         } catch (e) {
             console.error(e);
             return toolkit.error;
