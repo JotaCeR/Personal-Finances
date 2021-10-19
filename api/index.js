@@ -2,7 +2,7 @@ const server = require('./src/app');
 const db = require('./src/db');
 const entryTable = require('./src/DAOs/models/Entry');
 const categoryTable = require('./src/DAOs/models/Category');
-const entCatTable = require('./src/DAOs/models/IntermediateTables');
+const catEntTable = require('./src/DAOs/models/CatEntryTable');
 
 server.listen(3001, () => {
     console.log('%s listening at 3001');
@@ -19,7 +19,7 @@ async function connectionDB () {
         console.log("Checking Database tables...");
         await entryTable();
         await categoryTable();
-        await entCatTable();
+        await catEntTable();
         // db.end();
         // console.log("Closing PostgreSQL Database connection...");
     } catch (e) {

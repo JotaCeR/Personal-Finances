@@ -9,7 +9,7 @@ class EntryDAO {
         this.addNoneEntryQuery = "INSERT INTO entries(amount, type) VALUES($1, $2)";
         this.selectLastTen = "SELECT * FROM entries ORDER BY date DESC FETCH FIRST 10 ROWS ONLY";
         this.updateEntry = "UPDATE entries SET reason=$1, amount=$2, date=$3 WHERE id=$4";
-        this.deleteEntryById = "DELETE FROM entries WHERE id=$1"
+        this.deleteEntryById = "DELETE FROM entries WHERE id=$1";
     }
 
     async createEntry(entry, keys) {
