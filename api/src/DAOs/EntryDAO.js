@@ -3,17 +3,35 @@ const toolkit = require('../toolkit');
 
 class EntryDAO {
     constructor () {
-        this.addEntryQuery = "INSERT INTO entries(reason, amount, date, type) VALUES($1, $2, $3, $4)";
+        this.addFullEntryQuery = "INSERT INTO entries(reason, amount, date, type) VALUES($1, $2, $3, $4)";
+        this.addReasonEntryQuery = "INSERT INTO entries(reason, amount, type) VALUES($1, $2, $3)";
+        this.addDateEntryQuery = "INSERT INTO entries(amount, date, type) VALUES($1, $2, $3)";
+        this.addNoneEntryQuery = "INSERT INTO entries(amount, type) VALUES($1, $2)";
         this.selectLastTen = "SELECT * FROM entries ORDER BY date DESC FETCH FIRST 10 ROWS ONLY";
         this.updateEntry = "UPDATE entries SET $1=$2 WHERE id=$3";
         this.deleteEntryById = "DELETE FROM entries WHERE id=$1"
     }
 
     async createEntry(entry) {
-        const {reason, amount, date, type} = entry;
-        const values = [reason, amount, date, type]
-        const dbEntry = await db.query(this.addEntryQuery, values);
-        return dbEntry;
+        const values = [];
+        
+        for (const prop in entry) {
+            values.push(entry[prop])
+        };
+
+        if (values.includes("reason") && values.includes("date")) {
+            await db.query(this.addFullEntryQuery, values);
+            return "New Entry added successfully!"
+        } else if (values.includes("reason" && !values.includes("date"))) {
+            await db.query(this.addReasonEntryQuery, values);
+            return "New Entry added successfully!"
+        } else if (values.includes("date") && !values.includes("reason")) {
+            await db.query(this.addDateEntryQuery, values);
+            return "New Entry added successfully!"
+        } else {
+            await db.query(this.addNoneEntryQuery, values);
+            return "New Entry added successfully!"
+        };
     }
 
     async getLastEntries() {

@@ -77,10 +77,12 @@ export default function EntryForm() {
                 <form onSubmit={(e) => {
                     e.preventDefault();
                     
-                    setEntry((entry) => ({
-                        ...entry,
-                        date: new Date(entry.date)
-                    }));
+                    if (entry.date !== null) {
+                        setEntry((entry) => ({
+                            ...entry,
+                            date: new Date(entry.date)
+                        }));
+                    }
 
                     addEntry(entry);
                 }}>

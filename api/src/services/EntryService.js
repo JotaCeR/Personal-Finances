@@ -9,10 +9,13 @@ class EntryService {
             console.log(JSON.stringify(entry));
 
             for (const prop in entry) {
+                console.log(entry[prop])
                 if (entry[prop] !== null) {
                     builtEntry[prop] = entry[prop];
                 }
             };
+
+            console.log(builtEntry);
 
             return await EntryDAO.createEntry(builtEntry);
         } catch (e) {
