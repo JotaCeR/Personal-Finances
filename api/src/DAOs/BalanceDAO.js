@@ -12,6 +12,7 @@ class BalanceDAO {
     async getAditionsSum () {
         try {
             const adds = await db.query(this.addSumQuery);
+            console.log(adds.rows)
             return adds.rows;
         } catch (e) {
             console.error(e);
@@ -31,7 +32,8 @@ class BalanceDAO {
 
     async getAditions () {
         try {
-            return await db.query(this.addEntriesOrderedQuery);
+            const result = await db.query(this.addEntriesOrderedQuery);
+            return result.rows
         } catch (e) {
             console.error(e);
             return toolkit.error
@@ -40,7 +42,8 @@ class BalanceDAO {
 
     async getExtractions() {
         try {
-            return await db.query(this.extEntriesOrderedQuery);
+            const result = await db.query(this.extEntriesOrderedQuery);
+            return result.rows
         } catch (e) {
             console.error(e);
             return toolkit.error

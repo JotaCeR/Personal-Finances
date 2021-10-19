@@ -4,29 +4,15 @@ const toolkit = require('../toolkit');
 class EntryService {
     async createEntry(entry) {
         try {
-            const builtEntry = entry;
-            let code = "";
+            const builtEntry = {};
             console.log(toolkit.servCall);
             console.log(JSON.stringify(entry));
 
             for (const prop in entry) {
                 if (entry[prop] !== null) {
                     builtEntry[prop] = entry[prop];
-                } else {
-                    switch (prop) {
-                        case "reason":
-                            code += "r";
-                            break;
-                        case "date":
-                            code += "d";
-                            break;
-                        default:
-                            code;
-                    }
                 }
             };
-
-            builtEntry[code] = code;
 
             return await EntryDAO.createEntry(builtEntry);
         } catch (e) {

@@ -28,6 +28,7 @@ const getAddEntries = async (req, res) => {
     try {
         console.log(toolkit.conCall);
         const result = await BalanceService.getAditions();
+        console.log(result)
         res.status(200).send(result);
     } catch (error) {
         console.error(error);
