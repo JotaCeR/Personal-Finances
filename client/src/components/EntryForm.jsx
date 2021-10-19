@@ -17,6 +17,7 @@ export default function EntryForm() {
     });
 
     const dispatch = useDispatch();
+    const typeVal = null;
     
     function validateEntry (entry) {
         let errors = {};
@@ -24,7 +25,7 @@ export default function EntryForm() {
         if (entry.amount <= 0) {
                 errors.amount = "Please especify a positive amount for the entry."
         };
-        if (entry.type === null) {
+        if (entry.type === null || entry.type === "") {
                 errors.type = "Please, choose if the entry is a substraction or adition."
         };
 
@@ -98,7 +99,7 @@ export default function EntryForm() {
                     <div>
                         <h4>Operation Type:</h4>
                         <select name="type" value={entry.type} onChange={(e) => handleChange(e)} >
-                            <option value="">-- ---- --</option>
+                            <option value={typeVal}></option>
                             <option value="adition">Adition</option>
                             <option value="extraction">Extraction</option>
                         </select>
