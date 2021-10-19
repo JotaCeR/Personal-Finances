@@ -18,15 +18,13 @@ class EntryDAO {
 
     async getLastEntries() {
         try {
-            const lastEntries = await db.query("SELECT * FROM entry ORDER BY date DESC FETCH FIRST 10 ROWS ONLY");
+            const lastEntries = await db.query(this.selectLastTen);
+            // console.log(lastEntries.rows)
  
-            if (lastEntries.length > 0) {
-                console.log(JSON.stringify(lastEntries));
-            } else {
+            if (lastEntries.rows.length <= 0) {
                 return toolkit.error
             }
-            
-            return lastEntries;
+            return lastEntries.rows;
         } catch (e) {
             console.error(e);
             return toolkit.error;
