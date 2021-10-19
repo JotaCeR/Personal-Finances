@@ -36,8 +36,9 @@ class EntryService {
 
     async modifyEntry(id, entry) {
         console.log(toolkit.servCall);
-        const pairedArray = Object.entries(entry);
-        return await EntryDAO.modifyEntry(id, pairedArray);
+        const valuesArray = Object.values(entry);
+        valuesArray.push(id);
+        return await EntryDAO.modifyEntry(valuesArray);
     }
 
     async deleteEntry(id) {

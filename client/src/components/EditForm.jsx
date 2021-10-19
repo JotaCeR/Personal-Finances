@@ -57,7 +57,7 @@ export default function EditForm({id, reason, amount, date, type}) {
                 <div>
                     <h4>Amount:</h4>
                     <input name="amount" type="number" placeholder={entry.amount} value={entry.amount}
-                    onChange={(e) => handleChange(e)} min="1" />
+                    onChange={(e) => handleChange(e)} min="0" step="0.01" />
                 </div>
                 <div>
                     <h4>Date:</h4>

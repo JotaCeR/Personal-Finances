@@ -8,7 +8,7 @@ class EntryDAO {
         this.addDateEntryQuery = "INSERT INTO entries(amount, date, type) VALUES($1, $2, $3)";
         this.addNoneEntryQuery = "INSERT INTO entries(amount, type) VALUES($1, $2)";
         this.selectLastTen = "SELECT * FROM entries ORDER BY date DESC FETCH FIRST 10 ROWS ONLY";
-        this.updateEntry = "UPDATE entries SET $1=$2 WHERE id=$3";
+        this.updateEntry = "UPDATE entries SET reason=$1, amount=$2, date=$3 WHERE id=$4";
         this.deleteEntryById = "DELETE FROM entries WHERE id=$1"
     }
 
@@ -49,12 +49,9 @@ class EntryDAO {
         };
     }
 
-    async modifyEntry(id, entry) {
+    async modifyEntry(values) {
         try {
-            for (let i = 0; i < entry.length; i++) {
-                const values = [entry[i][0], entry[i][1], id];
-                await db.query(this.UpdateEntry, values);
-            }
+            await db.query(this.updateEntry, values);
 
             return "Entry updated successfully.";
         } catch (e) {
