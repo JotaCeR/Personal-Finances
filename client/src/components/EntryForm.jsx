@@ -103,6 +103,7 @@ export default function EntryForm() {
                             <option value="adition">Adition</option>
                             <option value="extraction">Extraction</option>
                         </select>
+                        <h4>Operation Categories:</h4>
                     </div>
                     {validateButton(errors) ? <button type="submit" disabled>Add</button> : <button type="submit">Add</button>}
                 </form>

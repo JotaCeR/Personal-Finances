@@ -1,25 +1,37 @@
 const EntryDAO = require('../DAOs/EntryDAO');
+const CategoryDAO = require('../DAOs/CategoryDAO');
+const CatEntryDAO = require('../DAOs/CatEntryDAO');
 const toolkit = require('../toolkit');
 
 class EntryService {
     async createEntry(entry) {
         try {
+            // console.log(entry);
             const builtEntry = {};
+            const categories = entry.categories;
             console.log(toolkit.servCall);
-            console.log(JSON.stringify(entry));
+            // console.log(JSON.stringify(entry));
+            // console.log(JSON.stringify(categories));
 
             for (const prop in entry) {
-                console.log(entry[prop])
-                if (entry[prop] !== null) {
+                // console.log(entry[prop])
+                if (entry[prop] !== null && prop !== "categories") {
                     builtEntry[prop] = entry[prop];
                 }
             };
 
-            const entryKeys = Object.keys(builtEntry)
+            const entryKeys = Object.keys(builtEntry);
 
-            console.log(builtEntry, entryKeys);
+            console.log(builtEntry, entryKeys, categories);
+            const getCats = await CategoryDAO.findCategory(categories);
+            // console.log(getCats);
 
-            return await EntryDAO.createEntry(builtEntry, entryKeys);
+            let insertedEntry = await EntryDAO.createEntry(builtEntry, entryKeys);
+            insertedEntry = insertedEntry.rows[0];
+
+            await CatEntryDAO.createRelation(insertedEntry.id, getCats);
+
+            return insertedEntry;
         } catch (e) {
             console.error(e);
             return toolkit.error;

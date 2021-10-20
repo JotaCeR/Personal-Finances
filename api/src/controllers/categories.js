@@ -12,4 +12,19 @@ const addCategory = async (req, res) => {
     }
 };
 
-module.exports = {addCategory}
+const findCategory = async (req, res) => {
+    try {
+        const { categories } = req.body;
+        console.log(toolkit.conCall);
+        const result = await CategoryService.findCategory(categories);
+        res.status(200).json(result);
+    } catch (e) {
+        console.error(e);
+        res.status(400).send(toolkit.error);
+    }
+}
+
+module.exports = {
+    addCategory,
+    findCategory
+}

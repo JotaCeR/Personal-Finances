@@ -13,8 +13,7 @@ async function buildCatEntRel () {
     );
     `;
 
-    const res = await db.query(queryText);
-    // console.log(JSON.stringify(res));
+    await db.query(queryText);
 };
 
 module.exports = buildCatEntRel;

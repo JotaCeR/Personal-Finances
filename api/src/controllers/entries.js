@@ -5,8 +5,8 @@ const toolkit = require('../toolkit');
 const addEntry = async (req, res) => {
     try {
         console.log(toolkit.conCall);
-        await EntryService.createEntry(req.body);
-        res.status(201).send("¡Entry successfully saved on DataBase!");
+        const savedEntry = await EntryService.createEntry(req.body);
+        res.status(201).json(savedEntry);
     } catch (error) {
         console.error(error);
         res.status(400).send(toolkit.error);

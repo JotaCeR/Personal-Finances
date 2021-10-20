@@ -8,6 +8,16 @@ class CategoryService {
         values.push(name.name);
         return await CategoryDAO.createCategory(values);
     }
+
+    async findCategory (values) {
+        try {
+            // console.log("Service name:", values);
+            return await CategoryDAO.findCategory(values);
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
 };
 
 module.exports = new CategoryService();

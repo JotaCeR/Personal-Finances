@@ -12,7 +12,7 @@ class BalanceDAO {
     async getAditionsSum () {
         try {
             const adds = await db.query(this.addSumQuery);
-            console.log(adds.rows)
+            // console.log(adds.rows)
             return adds.rows;
         } catch (e) {
             console.error(e);
