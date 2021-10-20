@@ -4,9 +4,13 @@ const db = require('../db');
 
 class CategoryService {
     async createCategory (name) {
-        const values = [];
-        values.push(name.name);
-        return await CategoryDAO.createCategory(values);
+        try {
+            const values = [];
+            values.push(name.name);
+            return await CategoryDAO.createCategory(values);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     async findCategory (values) {
@@ -16,7 +20,7 @@ class CategoryService {
         } catch (e) {
             console.error(e);
             return toolkit.error;
-        }
+        };
     }
 };
 

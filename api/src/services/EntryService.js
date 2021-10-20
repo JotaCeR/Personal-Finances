@@ -35,7 +35,7 @@ class EntryService {
         } catch (e) {
             console.error(e);
             return toolkit.error;
-        }
+        };
     }
 
     async getLastEntries() {
@@ -45,7 +45,7 @@ class EntryService {
         } catch (e) {
             console.error(e);
             return toolkit.error;
-        }
+        };
     }
 
     async modifyEntry(id, entry) {

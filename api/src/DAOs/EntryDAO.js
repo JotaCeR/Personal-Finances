@@ -13,30 +13,34 @@ class EntryDAO {
     }
 
     async createEntry(entry, keys) {
-        // console.log("DAO:", entry, keys);
-        const values = [];
-        
-        for (const prop in entry) {
-            console.log(prop)
-            values.push(entry[prop])
-        };
+        try {
+            // console.log("DAO:", entry, keys);
+            const values = [];
+            
+            for (const prop in entry) {
+                console.log(prop)
+                values.push(entry[prop])
+            };
 
-        // console.log(values);
-        // console.log(keys.includes('reason'));
-        // console.log(keys.includes('date'));
+            // console.log(values);
+            // console.log(keys.includes('reason'));
+            // console.log(keys.includes('date'));
 
-        if (keys.includes('reason') && keys.includes('date')) {
-            return await db.query(this.addFullEntryQuery, values);
-            // return "New Entry added successfully!"
-        } else if (keys.includes('reason') && !keys.includes('date')) {
-            return await db.query(this.addReasonEntryQuery, values);
-            // return "New Entry added successfully!"
-        } else if (keys.includes('date') && !keys.includes('reason')) {
-            return await db.query(this.addDateEntryQuery, values);
-            // return "New Entry added successfully!"
-        } else {
-            return await db.query(this.addNoneEntryQuery, values);
-            // return "New Entry added successfully!"
+            if (keys.includes('reason') && keys.includes('date')) {
+                return await db.query(this.addFullEntryQuery, values);
+                // return "New Entry added successfully!"
+            } else if (keys.includes('reason') && !keys.includes('date')) {
+                return await db.query(this.addReasonEntryQuery, values);
+                // return "New Entry added successfully!"
+            } else if (keys.includes('date') && !keys.includes('reason')) {
+                return await db.query(this.addDateEntryQuery, values);
+                // return "New Entry added successfully!"
+            } else {
+                return await db.query(this.addNoneEntryQuery, values);
+                // return "New Entry added successfully!"
+            };
+        } catch (e) {
+            console.error(e);
         };
     }
 

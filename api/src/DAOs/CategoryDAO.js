@@ -8,22 +8,30 @@ class CategoryDAO {
     }
 
     async createCategory (name) {
-        const newCat = await db.query(this.addCategoryQuery, name);
-        console.log(newCat);
-        return "New Category created successfully!";
+        try {
+            const newCat = await db.query(this.addCategoryQuery, name);
+            console.log(newCat);
+            return "New Category created successfully!";
+        } catch (e) {
+            console.error(e);
+        };
     }
 
     async findCategory (names) {
-        // console.log("DAO name:  ", name);
-        let search;
-        let results = [];
+        try {
+            // console.log("DAO name:  ", name);
+            let search;
+            let results = [];
 
-        for (let i = 0; i < names.length; i++) {
-            search = await db.query(this.findCategoryQuery, [names[i]]);
-            results = [...results, ...search.rows];
-        };
+            for (let i = 0; i < names.length; i++) {
+                search = await db.query(this.findCategoryQuery, [names[i]]);
+                results = [...results, ...search.rows];
+            };
 
-        return results;
+            return results;
+        } catch (e) {
+            console.error(e);
+        }
     }
 };
 
