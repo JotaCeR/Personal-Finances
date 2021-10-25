@@ -7,8 +7,9 @@ class EntryService {
     async createEntry(entry) {
         try {
             // console.log(entry);
-            const builtEntry = {};
+            const builtEntry = [];
             const categories = entry.categories;
+            const entryKeys = [];
             console.log(toolkit.servCall);
             // console.log(JSON.stringify(entry));
             // console.log(JSON.stringify(categories));
@@ -16,11 +17,10 @@ class EntryService {
             for (const prop in entry) {
                 // console.log(entry[prop])
                 if (entry[prop] !== null && prop !== "categories") {
-                    builtEntry[prop] = entry[prop];
+                    builtEntry.push(entry[prop]);
+                    entryKeys.push(prop);
                 }
             };
-
-            const entryKeys = Object.keys(builtEntry);
 
             console.log(builtEntry, entryKeys, categories);
             const getCats = await CategoryDAO.findCategory(categories);

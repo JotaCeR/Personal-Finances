@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import EntryForm from './EntryForm';
 import ListItem from './ListItem';
 import EditForm from './EditForm';
+import CategoryForm from './CategoryForm';
 import { getAddEntries, getExtEntries } from '../actions/operationsActions';
 
 export default function ABM() {
@@ -25,6 +26,7 @@ export default function ABM() {
         <div>
             <h1>ABM Operations</h1>
             <EntryForm />
+            <CategoryForm />
             <div>
                 {editingEntry ? <EditForm id={editingEntry.id} reason={editingEntry.reason} amount={editingEntry.amount} date={editingEntry.date} type={editingEntry.type} /> : null}
                 <div>

@@ -15,28 +15,28 @@ class EntryDAO {
     async createEntry(entry, keys) {
         try {
             // console.log("DAO:", entry, keys);
-            const values = [];
+            // const values = [];
             
-            for (const prop in entry) {
-                console.log(prop)
-                values.push(entry[prop])
-            };
+            // for (const prop in entry) {
+            //     console.log(prop)
+            //     values.push(entry[prop])
+            // };
 
             // console.log(values);
             // console.log(keys.includes('reason'));
             // console.log(keys.includes('date'));
 
             if (keys.includes('reason') && keys.includes('date')) {
-                return await db.query(this.addFullEntryQuery, values);
+                return await db.query(this.addFullEntryQuery, entry);
                 // return "New Entry added successfully!"
             } else if (keys.includes('reason') && !keys.includes('date')) {
-                return await db.query(this.addReasonEntryQuery, values);
+                return await db.query(this.addReasonEntryQuery, entry);
                 // return "New Entry added successfully!"
             } else if (keys.includes('date') && !keys.includes('reason')) {
-                return await db.query(this.addDateEntryQuery, values);
+                return await db.query(this.addDateEntryQuery, entry);
                 // return "New Entry added successfully!"
             } else {
-                return await db.query(this.addNoneEntryQuery, values);
+                return await db.query(this.addNoneEntryQuery, entry);
                 // return "New Entry added successfully!"
             };
         } catch (e) {
