@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EntryForm from './EntryForm';
-import ListItem from './ListItem';
+import EntryItem from './EntryItem';
 import EditForm from './EditForm';
 import CategoryForm from './CategoryForm';
 import { getAddEntries, getExtEntries } from '../actions/operationsActions';
@@ -32,13 +32,13 @@ export default function ABM() {
                 <div>
                     <h4>Extractions Histoy</h4>
                     <ul>
-                        {extEntries ? extEntries.map((entry) => {return <ListItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} />}) : "Empty..."}
+                        {extEntries ? extEntries.map((entry) => {return <EntryItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} />}) : "Empty..."}
                     </ul>
                 </div>
                 <div>
                     <h4>Additions Histoy</h4>
                     <ul>
-                        {addEntries ? addEntries.map((entry) => {return <ListItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} />}) : "Empty..."}
+                        {addEntries ? addEntries.map((entry) => {return <EntryItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} />}) : "Empty..."}
                     </ul>
                 </div>
             </div>

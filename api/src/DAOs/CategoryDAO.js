@@ -5,6 +5,7 @@ class CategoryDAO {
     constructor () {
         this.addCategoryQuery = "INSERT INTO categories(name) VALUES ($1)";
         this.findCategoryQuery = "SELECT * FROM categories WHERE name=$1";
+        this.findAllCategoryQuery = "SELECT * FROM categories";
     }
 
     async createCategory (name) {
@@ -31,6 +32,18 @@ class CategoryDAO {
             return results;
         } catch (e) {
             console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async findAllCategories () {
+        try {
+            const result = await db.query(this.findAllCategoryQuery);
+
+            return result.rows;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
         }
     }
 };

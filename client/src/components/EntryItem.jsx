@@ -32,7 +32,7 @@ export default function ListItem ({id, reason, amount, date, type}) {
     // }, [actionType, dispatch, handleDelete]);
 
     return (
-        <li id={id}>
+        <li key={id} id={id}>
             <table>
                 <thead>
                     <tr>

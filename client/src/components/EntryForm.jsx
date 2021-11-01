@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getAddEntries, getExtEntries } from '../actions/operationsActions';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAddEntries, getExtEntries, getAllCategories, resetEntryCategories } from '../actions/operationsActions';
+import CategoryList from './CategoryList';
 const axios = require('axios');
 
 export default function EntryForm() {
     const [entry, setEntry] = useState({
-        reason: null,
+        reason: "",
         amount: 0,
-        date: null,
-        type: null
+        date: "",
+        type: "",
     });
 
     const [errors, setErrors] = useState({
@@ -17,7 +18,14 @@ export default function EntryForm() {
     });
 
     const dispatch = useDispatch();
-    const typeVal = null;
+    const typeVal = undefined;
+
+    useEffect(() => {
+        dispatch(getAllCategories());
+    }, [dispatch]);
+
+    let entryCategories = useSelector((state) => state.categories.entryCategories);
+    let categories = useSelector((state) => state.categories.allCategories);
     
     function validateEntry (entry) {
         let errors = {};
@@ -31,6 +39,15 @@ export default function EntryForm() {
 
         return errors;
     };
+
+    useEffect(() => {
+        if (entryCategories !== null) {
+            setEntry((entry) => ({
+                ...entry,
+                categories: entryCategories
+            }));
+        };
+    }, [entryCategories]);
 
     function handleChange (e) {
         e.preventDefault();
@@ -55,10 +72,10 @@ export default function EntryForm() {
 
         setEntry((entry) => ({
             ...entry,
-            reason: null,
+            reason: "",
             amount: 0,
-            date: null,
-            type: null
+            date: "",
+            type: "",
         }));
     };
 
@@ -70,7 +87,7 @@ export default function EntryForm() {
         } else {
             return false
         }
-    }
+    };
 
     return (
         <div>
@@ -83,9 +100,10 @@ export default function EntryForm() {
                             ...entry,
                             date: new Date(entry.date)
                         }));
-                    }
-
+                    };
+                    
                     addEntry(entry);
+                    dispatch(resetEntryCategories());
                 }}>
                     <div>
                         <h4>Operation:</h4>
@@ -104,6 +122,7 @@ export default function EntryForm() {
                             <option value="extraction">Extraction</option>
                         </select>
                         <h4>Operation Categories:</h4>
+                        {categories && categories.length > 0 ? <CategoryList categories={categories} entryCats={entryCategories} /> : "Loading categories..."}
                     </div>
                     {validateButton(errors) ? <button type="submit" disabled>Add</button> : <button type="submit">Add</button>}
                 </form>

@@ -22,6 +22,15 @@ class CategoryService {
             return toolkit.error;
         };
     }
+
+    async findAllCategories () {
+        try {
+            return await CategoryDAO.findAllCategories();
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
 };
 
 module.exports = new CategoryService();

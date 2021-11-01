@@ -14,9 +14,20 @@ const addCategory = async (req, res) => {
 
 const findCategory = async (req, res) => {
     try {
-        const { categories } = req.body;
+        const { categories_names } = req.body;
         console.log(toolkit.conCall);
-        const result = await CategoryService.findCategory(categories);
+        const result = await CategoryService.findCategory(categories_names);
+        res.status(200).json(result);
+    } catch (e) {
+        console.error(e);
+        res.status(400).send(toolkit.error);
+    }
+};
+
+const findAllCategories = async (req, res) => {
+    try {
+        console.log(toolkit.conCall);
+        const result = await CategoryService.findAllCategories();
         res.status(200).json(result);
     } catch (e) {
         console.error(e);
@@ -26,5 +37,6 @@ const findCategory = async (req, res) => {
 
 module.exports = {
     addCategory,
-    findCategory
+    findCategory,
+    findAllCategories,
 }

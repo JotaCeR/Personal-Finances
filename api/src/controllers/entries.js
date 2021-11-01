@@ -4,6 +4,7 @@ const toolkit = require('../toolkit');
 
 const addEntry = async (req, res) => {
     try {
+        console.log(req.body)
         console.log(toolkit.conCall);
         const savedEntry = await EntryService.createEntry(req.body);
         res.status(201).json(savedEntry);

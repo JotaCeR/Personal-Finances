@@ -9,4 +9,6 @@ router.post('/new', categoryController.addCategory);
 
 router.get('/find', categoryController.findCategory);
 
+router.get('/find/all', categoryController.findAllCategories);
+
 module.exports = router;

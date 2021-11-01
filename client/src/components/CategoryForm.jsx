@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 const axios = require('axios');
 
 export default function CategoryForm() {
-    const [category, setCategory] = useState({name: null});
+    const [category, setCategory] = useState({name: ""});
 
     function handleChange (e) {
         e.preventDefault();
@@ -32,7 +32,7 @@ export default function CategoryForm() {
                     <h4>Name:</h4>
                     <input name="name" type="text" placeholder="Category name..." value={category.name} onChange={(e) => handleChange(e)} />
                 </div>
-                {category.name ? <button type="submit">Add</button> : <button type="submit" disabled>Add</button>}
+                {category.name && category.name !== "" ? <button type="submit">Add</button> : <button type="submit" disabled>Add</button>}
             </form>
         </div>
     )
