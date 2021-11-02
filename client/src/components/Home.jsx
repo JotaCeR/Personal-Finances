@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBalance, getLastEntries } from '../actions/homeActions';
+import HomeItem from './HomeItem';
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function Home() {
             <div>
                 <h2>Last Entries</h2>
                 <ul>
-                    {Array.isArray(entries) ? entries.map((entry) => {return <li>Reason: {entry.reason}, Amount: {entry.amount}, Date: {entry.date}, Type: {entry.type}</li>}) : <li>{entries}</li>}
+                    {Array.isArray(entries) ? entries.map((entry) => {return <HomeItem key={entry.id} id={entry.id} reason={entry.reason} amount={entry.amount} date={entry.date} type={entry.type} />}) : <li>{entries}</li>}
                 </ul>
             </div>
         </div>
