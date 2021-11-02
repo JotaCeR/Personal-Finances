@@ -16,7 +16,7 @@ const addEntry = async (req, res) => {
 
 const getLastEntries = async (req, res) => {
     try {
-        console.log(toolkit.conCall);
+        // console.log(toolkit.conCall);
         const lastEntries = await EntryService.getLastEntries();
         res.status(200).json(lastEntries);
     } catch (error) {
@@ -29,7 +29,7 @@ const getAddEntries = async (req, res) => {
     try {
         console.log(toolkit.conCall);
         const result = await BalanceService.getAditions();
-        console.log(result)
+        // console.log(result)
         res.status(200).send(result);
     } catch (error) {
         console.error(error);

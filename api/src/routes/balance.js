@@ -5,4 +5,6 @@ const router = Router();
 
 router.get('/', balanceController.getBalance);
 
+router.get('/full_aditions', balanceController.getAddsFull);
+
 module.exports = router;

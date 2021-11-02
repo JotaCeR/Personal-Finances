@@ -47,6 +47,17 @@ class BalanceService {
             return toolkit.error;
         }
     }
+
+    async getAditionsFull() {
+        try {
+            console.log(toolkit.servCall);
+            const adds = await BalanceDAO.getAditionsFull();
+            return adds;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
 };
 
 module.exports = new BalanceService();

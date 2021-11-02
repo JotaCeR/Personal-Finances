@@ -7,6 +7,7 @@ class BalanceDAO {
         this.extSumQuery = "SELECT SUM(amount) FROM entries WHERE type='extraction'";
         this.addEntriesOrderedQuery = "SELECT * FROM entries WHERE type='adition' ORDER BY date DESC";
         this.extEntriesOrderedQuery = "SELECT * FROM entries WHERE type='extraction' ORDER BY date DESC";
+        this.getAddVariant = "SELECT * FROM entries JOIN entries_categories ON (entries.id = entries_categories.entry_id) JOIN categories ON (entries_categories.category_id = categories.id) WHERE entries.type = 'adition' ORDER BY entries.date DESC";
     }
 
     async getAditionsSum () {
@@ -47,6 +48,16 @@ class BalanceDAO {
         } catch (e) {
             console.error(e);
             return toolkit.error
+        }
+    }
+
+    async getAditionsFull() {
+        try {
+            const result = await db.query(this.getAddVariant);
+            return result.rows
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
         }
     }
 };

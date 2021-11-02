@@ -22,7 +22,7 @@ class EntryService {
                 }
             };
 
-            console.log(builtEntry, entryKeys, categories);
+            // console.log(builtEntry, entryKeys, categories);
             const getCats = await CategoryDAO.findCategory(categories);
             // console.log(getCats);
 
@@ -58,6 +58,7 @@ class EntryService {
     async deleteEntry(id) {
         try {
             console.log(toolkit.servCall);
+            await CatEntryDAO.deleteRelationsByEntryId(id);
             return await EntryDAO.deleteEntry(id);
         } catch (e) {
             console.error(e);
