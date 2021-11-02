@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getAllCategories } from '../actions/operationsActions';
 const axios = require('axios');
 
 export default function CategoryForm() {
     const [category, setCategory] = useState({name: ""});
+
+    const dispatch = useDispatch();
 
     function handleChange (e) {
         e.preventDefault();
@@ -19,6 +23,13 @@ export default function CategoryForm() {
             url: 'http://localhost:3001/categories/new',
             data: category
         });
+
+        setCategory((cat) => ({
+            ...cat,
+            name: ""
+        }));
+
+        dispatch(getAllCategories());
     };
     
     return (

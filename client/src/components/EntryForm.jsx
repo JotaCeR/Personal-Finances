@@ -69,6 +69,7 @@ export default function EntryForm() {
 
         dispatch(getAddEntries());
         dispatch(getExtEntries());
+        dispatch(resetEntryCategories());
 
         setEntry((entry) => ({
             ...entry,
@@ -103,7 +104,6 @@ export default function EntryForm() {
                     };
                     
                     addEntry(entry);
-                    dispatch(resetEntryCategories());
                 }}>
                     <div>
                         <h4>Operation:</h4>
