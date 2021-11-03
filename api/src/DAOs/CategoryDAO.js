@@ -25,10 +25,14 @@ class CategoryDAO {
             let results = [];
 
             for (let i = 0; i < names.length; i++) {
-                search = await db.query(this.findCategoryQuery, [names[i]]);
+                // console.log("Category value:", names[i]);
+                search = await db.query(this.findCategoryQuery, [names[i].name]);
+                // console.log("Category search result:", search.rows);
                 results = [...results, ...search.rows];
             };
 
+            console.log("Full category search:", results);
+            
             return results;
         } catch (e) {
             console.error(e);

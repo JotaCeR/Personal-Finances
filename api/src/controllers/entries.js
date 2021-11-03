@@ -72,11 +72,35 @@ const deleteEntry = async (req, res) => {
     }
 }
 
+const getAll = async (req, res) => {
+    try {
+        const finalArray = await EntryService.getAll();
+        res.status(200).json(finalArray);
+    } catch (e) {
+        console.error(e);
+        res.status(400).send(toolkit.error);
+    }
+}
+
+const getOne = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(id);
+        const selectedEntry = await EntryService.getOne(id);
+        res.status(200).json(selectedEntry);
+    } catch (e) {
+        console.error(e);
+        return toolkit.error;
+    }
+}
+
 module.exports = {
     addEntry,
     getLastEntries,
     getAddEntries,
     getExtEntries,
     modifyEntry,
-    deleteEntry
+    deleteEntry,
+    getAll,
+    getOne,
 }

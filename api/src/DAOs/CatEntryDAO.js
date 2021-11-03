@@ -7,13 +7,10 @@ class CatEntryDAO {
         this.deleteRelationsByEntryIdQuery = "DELETE FROM entries_categories WHERE entry_id=$1";
     }
 
-    async createRelation (entryID, categoriesArray) {
+    async createRelation(queryArray, loopLength) {
         try {
-            for (let i = 0; i < categoriesArray.length; i++) {
-                let values = [entryID];
-                values.push(categoriesArray[i].id)
-                const dbAnswer = await db.query(this.insertRelationQuery, values);
-                console.log(dbAnswer)
+            for (let i = 0; i < loopLength; i++) {
+                await db.query(this.insertRelationQuery, queryArray[i]);
             }
             return "Relationships built successfully!";
         } catch (e) {

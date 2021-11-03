@@ -10,6 +10,8 @@ class EntryDAO {
         this.selectLastTen = "SELECT * FROM entries ORDER BY date DESC FETCH FIRST 10 ROWS ONLY";
         this.updateEntry = "UPDATE entries SET reason=$1, amount=$2, date=$3 WHERE id=$4";
         this.deleteEntryById = "DELETE FROM entries WHERE id=$1";
+        this.getAll = "SELECT * FROM entries";
+        this.selectById = "SELECT * FROM entries JOIN entries_categories ON entries.id = entries_categories.entry_id JOIN categories ON entries_categories.category_id = categories.id WHERE entries.id=$1";
     }
 
     async createEntry(entry, keys) {
@@ -79,6 +81,28 @@ class EntryDAO {
             console.error(e);
             return toolkit.error;
         };
+    }
+
+    async selectAll() {
+        try {
+            const result = await db.query(this.getAll);
+            // console.log(result);
+            return result.rows;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async selectOne(id) {
+        try {
+            const result = await db.query(this.selectById, id);
+            console.log(result);
+            return result.rows;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
     }
 }
 

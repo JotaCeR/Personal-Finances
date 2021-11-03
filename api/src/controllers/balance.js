@@ -12,9 +12,9 @@ const getBalance = async (req, res) => {
     };
 };
 
-const getAddsFull = async (req, res) => {
+const getAddsWithCats = async (req, res) => {
     try {
-        const fullAds = await BalanceService.getAditionsFull();
+        const fullAds = await BalanceService.getAditionsWithCats();
         res.status(201).json(fullAds);
     } catch (error) {
         console.error(error);
@@ -24,5 +24,5 @@ const getAddsFull = async (req, res) => {
 
 module.exports = {
     getBalance,
-    getAddsFull,
+    getAddsWithCats,
 }

@@ -14,7 +14,7 @@ export default function CategoryList ({categories, entryCats}) {
         });
         
         dispatch(setEntryCategories(categoryObjects));
-        console.log(categoryObjects);
+        // console.log(categoryObjects);
     }, [categories, checks, dispatch]);
 
     function resetInputs() {

@@ -14,6 +14,7 @@ async function buildCatEntRel () {
     `;
 
     await db.query(queryText);
+    console.log("Entries-Categories intermediate table successfully built!");
 };
 
 module.exports = buildCatEntRel;

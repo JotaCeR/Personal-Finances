@@ -21,4 +21,8 @@ router.put('/update/:id', entryController.modifyEntry);
 // delete existing Entry route
 router.delete('/delete/:id', entryController.deleteEntry);
 
+router.get('/all', entryController.getAll);
+
+router.get('/one/:id', entryController.getOne);
+
 module.exports = router;

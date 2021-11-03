@@ -1,7 +1,9 @@
 const EntryDAO = require('../DAOs/EntryDAO');
 const CategoryDAO = require('../DAOs/CategoryDAO');
-const CatEntryDAO = require('../DAOs/CatEntryDAO');
+const CategoryService = require('./CategoryService');
+const CatEntryService = require('./CatEntryService');
 const toolkit = require('../toolkit');
+const entr = "Entry ";
 
 class EntryService {
     async createEntry(entry) {
@@ -10,7 +12,7 @@ class EntryService {
             const builtEntry = [];
             const categories = entry.categories;
             const entryKeys = [];
-            console.log(toolkit.servCall);
+            console.log(entr, toolkit.servCall);
             // console.log(JSON.stringify(entry));
             // console.log(JSON.stringify(categories));
 
@@ -22,14 +24,15 @@ class EntryService {
                 }
             };
 
-            // console.log(builtEntry, entryKeys, categories);
-            const getCats = await CategoryDAO.findCategory(categories);
-            // console.log(getCats);
+            // console.log("Entry to build on DAO:", builtEntry);
+            const getCats = await CategoryService.findCategory(categories);
 
             let insertedEntry = await EntryDAO.createEntry(builtEntry, entryKeys);
             insertedEntry = insertedEntry.rows[0];
-
-            await CatEntryDAO.createRelation(insertedEntry.id, getCats);
+            
+            // console.log("Created Entry ID & Categories Array");
+            console.log(insertedEntry, getCats);
+            await CatEntryService.createRelation(insertedEntry.id, getCats);
 
             return insertedEntry;
         } catch (e) {
@@ -40,7 +43,7 @@ class EntryService {
 
     async getLastEntries() {
         try {
-            console.log(toolkit.servCall);
+            console.log(entr, toolkit.servCall);
             return await EntryDAO.getLastEntries();
         } catch (e) {
             console.error(e);
@@ -49,20 +52,46 @@ class EntryService {
     }
 
     async modifyEntry(id, entry) {
-        console.log(toolkit.servCall);
-        const valuesArray = Object.values(entry);
-        valuesArray.push(id);
-        return await EntryDAO.modifyEntry(valuesArray);
+        try {
+            console.log(entr, toolkit.servCall);
+            const valuesArray = Object.values(entry);
+            valuesArray.push(id);
+            return await EntryDAO.modifyEntry(valuesArray);
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
     }
 
     async deleteEntry(id) {
         try {
-            console.log(toolkit.servCall);
+            console.log(entr, toolkit.servCall);
             await CatEntryDAO.deleteRelationsByEntryId(id);
             return await EntryDAO.deleteEntry(id);
         } catch (e) {
             console.error(e);
             return toolkit.error;
+        };
+    }
+
+    async getAll() {
+        try {
+            console.log(entr, toolkit.servCall);
+            return await EntryDAO.selectAll();
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        };
+    }
+
+    async getOne(id) {
+        try {
+            console.log(entr, toolkit.servCall);
+            const value = [id];
+            return await EntryDAO.selectOne(value);
+        } catch (e) {
+            console.error(e);
+            return toolkit.error
         }
     }
 };
