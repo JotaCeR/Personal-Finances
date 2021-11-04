@@ -74,9 +74,8 @@ class EntryDAO {
         }
     }
 
-    async deleteEntry(id) {
+    async deleteEntry(values) {
         try {
-            const values = [id];
             await db.query(this.deleteEntryById, values);
             return "Entry deleted succesfully.";
         } catch (e) {

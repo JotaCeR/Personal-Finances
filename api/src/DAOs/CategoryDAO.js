@@ -6,6 +6,7 @@ class CategoryDAO {
         this.addCategoryQuery = "INSERT INTO categories(name) VALUES ($1)";
         this.findCategoryQuery = "SELECT * FROM categories WHERE name=$1";
         this.findAllCategoryQuery = "SELECT * FROM categories";
+        this.deleteCategoryById = "DELETE FROM categories WHERE id=$1";
     }
 
     async createCategory (name) {
@@ -45,6 +46,16 @@ class CategoryDAO {
             const result = await db.query(this.findAllCategoryQuery);
 
             return result.rows;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async deleteCategory (values) {
+        try {
+            await db.query(this.deleteCategoryById, values);
+            return "Category deleted successfully!";
         } catch (e) {
             console.error(e);
             return toolkit.error;

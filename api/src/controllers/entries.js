@@ -63,6 +63,7 @@ const modifyEntry = async (req, res) => {
 
 const deleteEntry = async (req, res) => {
     try {
+        console.log(toolkit.conCall);
         const { id } = req.params
         const deletedEntry = await EntryService.deleteEntry(id);
         res.status(200).json(deletedEntry);

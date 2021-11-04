@@ -76,8 +76,8 @@ class EntryService {
     async deleteEntry(id) {
         try {
             console.log(entr, toolkit.servCall);
-            await CatEntryDAO.deleteRelationsByEntryId(id);
-            return await EntryDAO.deleteEntry(id);
+            await CatEntryService.deleteRelationsByEntryId(id);
+            return await EntryDAO.deleteEntry([id]);
         } catch (e) {
             console.error(e);
             return toolkit.error;

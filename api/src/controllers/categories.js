@@ -33,10 +33,23 @@ const findAllCategories = async (req, res) => {
         console.error(e);
         res.status(400).send(toolkit.error);
     }
-}
+};
+
+const deleteCategory = async (req, res) => {
+    try {
+        console.log(toolkit.conCall);
+        const { id } = req.params;
+        const deletedCategory = await CategoryService.deleteCategory(id);
+        res.status(200).json(deletedCategory);
+    } catch (e) {
+        console.error(e);
+        res.status(400).send(toolkit.error);
+    }
+};
 
 module.exports = {
     addCategory,
     findCategory,
     findAllCategories,
+    deleteCategory,
 }

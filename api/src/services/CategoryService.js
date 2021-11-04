@@ -1,4 +1,5 @@
 const CategoryDAO = require('../DAOs/CategoryDAO');
+const CatEntryService = require('./CatEntryService');
 const toolkit = require('../toolkit');
 const catServ = "Category ";
 
@@ -29,6 +30,17 @@ class CategoryService {
         try {
             console.log(catServ, toolkit.servCall);
             return await CategoryDAO.findAllCategories();
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async deleteCategory (id) {
+        try {
+            console.log(catServ, toolkit.servCall);
+            await CatEntryService.deleteRelationsByCategoryId(id);
+            return await CategoryDAO.deleteCategory([id]);
         } catch (e) {
             console.error(e);
             return toolkit.error;
