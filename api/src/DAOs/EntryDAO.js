@@ -7,11 +7,11 @@ class EntryDAO {
         this.addReasonEntryQuery = "INSERT INTO entries(reason, amount, type) VALUES($1, $2, $3) RETURNING id";
         this.addDateEntryQuery = "INSERT INTO entries(amount, date, type) VALUES($1, $2, $3) RETURNING id";
         this.addNoneEntryQuery = "INSERT INTO entries(amount, type) VALUES($1, $2) RETURNING id";
-        this.selectLastTen = "SELECT * FROM entries ORDER BY date DESC FETCH FIRST 10 ROWS ONLY";
+        this.selectLastTen = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON (entries.id = entries_categories.entry_id) JOIN categories ON (entries_categories.category_id = categories.id) ORDER BY date DESC FETCH FIRST 10 ROWS ONLY";
         this.updateEntry = "UPDATE entries SET reason=$1, amount=$2, date=$3 WHERE id=$4";
         this.deleteEntryById = "DELETE FROM entries WHERE id=$1";
         this.getAll = "SELECT * FROM entries";
-        this.selectById = "SELECT * FROM entries JOIN entries_categories ON entries.id = entries_categories.entry_id JOIN categories ON entries_categories.category_id = categories.id WHERE entries.id=$1";
+        this.selectById = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON entries.id = entries_categories.entry_id JOIN categories ON entries_categories.category_id = categories.id WHERE entries.id=$1";
         this.getAddWithCats = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON (entries.id = entries_categories.entry_id) JOIN categories ON (entries_categories.category_id = categories.id) WHERE entries.type = 'adition' ORDER BY entries.date DESC";
         this.getExtWithCats = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON (entries.id = entries_categories.entry_id) JOIN categories ON (entries_categories.category_id = categories.id) WHERE entries.type = 'extraction' ORDER BY entries.date DESC";
     }

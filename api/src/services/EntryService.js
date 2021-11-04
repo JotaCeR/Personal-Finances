@@ -43,7 +43,18 @@ class EntryService {
     async getLastEntries() {
         try {
             console.log(entr, toolkit.servCall);
-            return await EntryDAO.getLastEntries();
+            const lasts = await EntryDAO.getLastEntries();
+            const loopLength = lasts.length;
+            let handledLastEntries = [];
+            
+            for (let i = 0; i < loopLength; i++) {
+                const handlingEntry = this.handleEntriesWithCats(lasts, lasts[i], i);
+                handledLastEntries.push(handlingEntry);
+            };
+
+            handledLastEntries = handledLastEntries.filter((fullEntry, index, arr) => index === arr.findIndex((entry) => (entry.id === fullEntry.id)));
+
+            return handledLastEntries;
         } catch (e) {
             console.error(e);
             return toolkit.error;
@@ -115,9 +126,10 @@ class EntryService {
         try {
             console.log(entr, toolkit.servCall);
             const adds = await EntryDAO.getAditionsWithCats();
+            const loopLength = adds.length
             let handledAditions = [];
 
-            for (let i = 0; i < adds.length; i++) {
+            for (let i = 0; i < loopLength; i++) {
                 const handlingAdition = this.handleEntriesWithCats(adds, adds[i], i);
                 handledAditions.push(handlingAdition);
             };
@@ -135,9 +147,10 @@ class EntryService {
         try {
             console.log(entr, toolkit.servCall);
             const exts = await EntryDAO.getExtractionsWithCats();
+            const loopLength = exts.length;
             let handledExtractions = [];
 
-            for (let i = 0; i < exts.length; i++) {
+            for (let i = 0; i < loopLength; i++) {
                 const handlingExtraction = this.handleEntriesWithCats(exts, exts[i], i);
                 handledExtractions.push(handlingExtraction);
             };

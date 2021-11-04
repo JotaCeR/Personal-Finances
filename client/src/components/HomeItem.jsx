@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function HomeItem({id, reason, amount, date, type}) {
+export default function HomeItem({id, reason, amount, date, type, categories}) {
     let showDate;
 
     if (date !== null) {
@@ -27,6 +27,7 @@ export default function HomeItem({id, reason, amount, date, type}) {
                         <td>{amount}</td>
                         <td>{showDate}</td>
                         <td>{type}</td>
+                        <td><ul>{categories.map((name) => <li>{name}</li>)}</ul></td>
                     </tr>
                 </tbody>
             </table>

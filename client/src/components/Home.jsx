@@ -30,7 +30,7 @@ export default function Home() {
             <div>
                 <h2>Last Entries</h2>
                 <ul>
-                    {Array.isArray(entries) ? entries.map((entry) => {return <HomeItem key={entry.id} id={entry.id} reason={entry.reason} amount={entry.amount} date={entry.date} type={entry.type} />}) : <li>{entries}</li>}
+                    {Array.isArray(entries) ? entries.map((entry) => {return <HomeItem key={entry.id} id={entry.id} reason={entry.reason} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : <li>{entries}</li>}
                 </ul>
             </div>
         </div>
