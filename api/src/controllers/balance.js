@@ -12,17 +12,6 @@ const getBalance = async (req, res) => {
     };
 };
 
-const getAddsWithCats = async (req, res) => {
-    try {
-        const fullAds = await BalanceService.getAditionsWithCats();
-        res.status(201).json(fullAds);
-    } catch (error) {
-        console.error(error);
-        res.status(409).json(toolkit.error);
-    }
-}
-
 module.exports = {
-    getBalance,
-    getAddsWithCats,
+    getBalance
 }

@@ -12,6 +12,8 @@ class EntryDAO {
         this.deleteEntryById = "DELETE FROM entries WHERE id=$1";
         this.getAll = "SELECT * FROM entries";
         this.selectById = "SELECT * FROM entries JOIN entries_categories ON entries.id = entries_categories.entry_id JOIN categories ON entries_categories.category_id = categories.id WHERE entries.id=$1";
+        this.getAddWithCats = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON (entries.id = entries_categories.entry_id) JOIN categories ON (entries_categories.category_id = categories.id) WHERE entries.type = 'adition' ORDER BY entries.date DESC";
+        this.getExtWithCats = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON (entries.id = entries_categories.entry_id) JOIN categories ON (entries_categories.category_id = categories.id) WHERE entries.type = 'extraction' ORDER BY entries.date DESC";
     }
 
     async createEntry(entry, keys) {
@@ -99,6 +101,28 @@ class EntryDAO {
             const result = await db.query(this.selectById, id);
             console.log(result);
             return result.rows;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async getAditionsWithCats() {
+        try {
+            const result = await db.query(this.getAddWithCats);
+            // console.log(result.rows);
+            return result.rows
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async getExtractionsWithCats() {
+        try {
+            const result = await db.query(this.getExtWithCats);
+            // console.log(result.rows);
+            return result.rows
         } catch (e) {
             console.error(e);
             return toolkit.error;

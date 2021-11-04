@@ -47,43 +47,6 @@ class BalanceService {
             return toolkit.error;
         }
     }
-
-    async getAditionsWithCats() {
-        try {
-            console.log(bal, toolkit.servCall);
-            const adds = await BalanceDAO.getAditionsWithCats();
-            let handledAditions = [];
-
-            for (let i = 0; i < adds.length; i++) {
-                const handlingAdition = this.handleAditionsWithCats(adds, adds[i], i);
-                handledAditions.push(handlingAdition);
-            };
-
-            handledAditions = handledAditions.filter((fullEntry, index, arr) => index === arr.findIndex((entry) => (entry.id === fullEntry.id)));
-
-            return handledAditions;
-        } catch (e) {
-            console.error(e);
-            return toolkit.error;
-        }
-    }
-
-    handleAditionsWithCats(array, arrayValue, index) {
-        try {
-            let newValue = {...arrayValue, categories: [arrayValue.categories]};
-
-            for (let i = 0; i < array.length; i++) {
-                if (i !== index && array[i].id === arrayValue.id) {
-                    newValue.categories.push(array[i].categories);
-                };
-            };
-
-            return newValue;
-        } catch (e) {
-            console.error(e);
-            return toolkit.error;
-        }
-    }
 };
 
 module.exports = new BalanceService();

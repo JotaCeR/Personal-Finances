@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getEditForm, getAddEntries, getExtEntries } from '../actions/operationsActions';
 const axios = require('axios');
 
-export default function ListItem ({id, reason, amount, date, type}) {
+export default function ListItem ({id, reason, amount, date, type, categories}) {
     const dispatch = useDispatch();
     const entry = {id, reason, amount, date, type};
     let showDate;
@@ -39,6 +39,7 @@ export default function ListItem ({id, reason, amount, date, type}) {
                         <th>Reason</th>
                         <th>Amount</th>
                         <th>Date</th>
+                        <th>Categories</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -48,6 +49,7 @@ export default function ListItem ({id, reason, amount, date, type}) {
                         <td>{reason}</td>
                         <td>{amount}</td>
                         <td>{showDate}</td>
+                        <td><ul>{categories.map((name) => <li>{name}</li>)}</ul></td>
                         <td><button onClick={(e) => handleEdit(e, entry)}>Edit</button></td>
                         <td><button onClick={(e) => handleDelete(e, id)}>Delete</button></td>
                     </tr>

@@ -1,5 +1,4 @@
 const EntryDAO = require('../DAOs/EntryDAO');
-const CategoryDAO = require('../DAOs/CategoryDAO');
 const CategoryService = require('./CategoryService');
 const CatEntryService = require('./CatEntryService');
 const toolkit = require('../toolkit');
@@ -92,6 +91,63 @@ class EntryService {
         } catch (e) {
             console.error(e);
             return toolkit.error
+        }
+    }
+
+    handleEntriesWithCats(array, arrayValue, index) {
+        try {
+            let newValue = {...arrayValue, categories: [arrayValue.categories]};
+
+            for (let i = 0; i < array.length; i++) {
+                if (i !== index && array[i].id === arrayValue.id) {
+                    newValue.categories.push(array[i].categories);
+                };
+            };
+
+            return newValue;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async getAditionsWithCats() {
+        try {
+            console.log(entr, toolkit.servCall);
+            const adds = await EntryDAO.getAditionsWithCats();
+            let handledAditions = [];
+
+            for (let i = 0; i < adds.length; i++) {
+                const handlingAdition = this.handleEntriesWithCats(adds, adds[i], i);
+                handledAditions.push(handlingAdition);
+            };
+
+            handledAditions = handledAditions.filter((fullEntry, index, arr) => index === arr.findIndex((entry) => (entry.id === fullEntry.id)));
+
+            return handledAditions;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async getExtractionsWithCats() {
+        try {
+            console.log(entr, toolkit.servCall);
+            const exts = await EntryDAO.getExtractionsWithCats();
+            let handledExtractions = [];
+
+            for (let i = 0; i < exts.length; i++) {
+                const handlingExtraction = this.handleEntriesWithCats(exts, exts[i], i);
+                handledExtractions.push(handlingExtraction);
+            };
+
+            handledExtractions = handledExtractions.filter((fullEntry, index, arr) => index === arr.findIndex((entry) => (entry.id === fullEntry.id)));
+
+            return handledExtractions;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
         }
     }
 };

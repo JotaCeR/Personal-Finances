@@ -7,10 +7,16 @@ const router = Router();
 router.get('/last', entryController.getLastEntries);
 
 // get addition entries route
-router.get('/aditions', entryController.getAddEntries);
+// router.get('/aditions', entryController.getAddEntries);
 
 // get extraction entries route
-router.get('/extractions', entryController.getExtEntries);
+// router.get('/extractions', entryController.getExtEntries);
+
+// get adition entries + categories associated route
+router.get('/aditions', entryController.getAddsWithCats);
+
+// get extraction entries + categories associated route
+router.get('/extractions', entryController.getExtsWithCats);
 
 // post new Entry route
 router.post('/new', entryController.addEntry);

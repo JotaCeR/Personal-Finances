@@ -94,6 +94,26 @@ const getOne = async (req, res) => {
     }
 }
 
+const getAddsWithCats = async (req, res) => {
+    try {
+        const adds = await EntryService.getAditionsWithCats();
+        res.status(200).json(adds);
+    } catch (e) {
+        console.error(e);
+        return toolkit.error;
+    }
+}
+
+const getExtsWithCats = async (req, res) => {
+    try {
+        const exts = await EntryService.getExtractionsWithCats();
+        res.status(200).json(exts);
+    } catch (e) {
+        console.error(e);
+        return toolkit.error;
+    }
+}
+
 module.exports = {
     addEntry,
     getLastEntries,
@@ -103,4 +123,6 @@ module.exports = {
     deleteEntry,
     getAll,
     getOne,
+    getAddsWithCats,
+    getExtsWithCats,
 }

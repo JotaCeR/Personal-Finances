@@ -18,6 +18,7 @@ export default function HomeItem({id, reason, amount, date, type}) {
                         <th>Amount</th>
                         <th>Date</th>
                         <th>Type</th>
+                        <th>Categories</th>
                     </tr>
                 </thead>
                 <tbody>
