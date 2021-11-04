@@ -5,6 +5,7 @@ import EntryItem from './EntryItem';
 import EditForm from './EditForm';
 import CategoryForm from './CategoryForm';
 import { getAddEntries, getExtEntries } from '../actions/operationsActions';
+import NavBar from './NavBar';
 
 export default function ABM() {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export default function ABM() {
     return (
         <div>
             <h1>ABM Operations</h1>
+            <NavBar />
             <EntryForm />
             <CategoryForm />
             <div>

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getEditForm, getAddEntries, getExtEntries } from '../actions/operationsActions';
 const axios = require('axios');
 
-export default function EditForm({id, reason, amount, date, type, categories}) {
+export default function EditForm({id, reason, amount, date, categories}) {
     const defaultEntry = {reason, amount, date};
     const dispatch = useDispatch();
     const [entry, setEntry] = useState(defaultEntry);
@@ -42,6 +42,7 @@ export default function EditForm({id, reason, amount, date, type, categories}) {
 
         dispatch(getAddEntries());
         dispatch(getExtEntries());
+        dispatch(getEditForm({id, reason, amount, date, categories}));
     };
 
     function cancelEdit(e) {

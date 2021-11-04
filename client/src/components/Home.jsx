@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBalance, getLastEntries } from '../actions/homeActions';
 import HomeItem from './HomeItem';
+import NavBar from './NavBar';
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export default function Home() {
     return (
         <div>
             <h1>My Personal Finances App</h1>
+            <NavBar />
             <div>
                 <h2>Current Balance</h2>
                 <p>{balance}</p>
