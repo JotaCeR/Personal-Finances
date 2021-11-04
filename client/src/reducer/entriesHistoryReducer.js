@@ -1,6 +1,6 @@
 let initialState = {
     addEntries: null,
-    extEntries: null
+    extEntries: null,
 };
 
 export default function entriesHistoryReducer (state = initialState, action) {

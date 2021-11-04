@@ -1,49 +1,64 @@
-const Entry = require('./models/Entry');
 const db = require('../db');
 const toolkit = require('../toolkit');
-const { Op } = require('sequelize');
 
 class BalanceDAO {
-    async getBalance () {
+    constructor() {
+        this.addSumQuery = "SELECT SUM(amount) FROM entries WHERE type='adition'";
+        this.extSumQuery = "SELECT SUM(amount) FROM entries WHERE type='extraction'";
+        this.addEntriesOrderedQuery = "SELECT * FROM entries WHERE type='adition' ORDER BY date DESC";
+        this.extEntriesOrderedQuery = "SELECT * FROM entries WHERE type='extraction' ORDER BY date DESC";
+    }
+
+    async getAditionsSum () {
         try {
-            const [adds, metadata1] = await db.query("SELECT SUM(amount) FROM entry WHERE type='adition'");
-            const [extrs, metadata2] = await db.query("SELECT SUM(amount) FROM entry WHERE type='extraction'");
-            const balance = adds[0].sum - extrs[0].sum;
-            
-            console.log('The aditions balance is:', JSON.stringify(adds));
-            console.log('The extractions balance is:', JSON.stringify(extrs));
-            console.log('The final balance is:', JSON.stringify(balance));
-            
-            return {balance}
+            const adds = await db.query(this.addSumQuery);
+            // console.log(adds.rows)
+
+            if (adds.rows.length <= 0) {
+                return toolkit.error;
+            }
+
+            return adds.rows;
         } catch (e) {
             console.error(e);
-            return toolkit.messages.error
+            return toolkit.error
+        }
+    }
+
+    async getExtractionsSum () {
+        try {
+            const exts = await db.query(this.extSumQuery);
+
+            if (exts.rows.length <= 0) {
+                return toolkit.error;
+            }
+
+            return exts.rows;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error
         }
     }
 
     async getAditions () {
         try {
-            const [adds, metadata] = await db.query("SELECT * FROM entry WHERE type='adition' ORDER BY date DESC");
-            console.log('The aditions entries are:', JSON.stringify(adds));
-
-            return adds;
+            const result = await db.query(this.addEntriesOrderedQuery);
+            return result.rows
         } catch (e) {
             console.error(e);
-            return toolkit.messages.error
+            return toolkit.error
         }
     }
 
-    async getExtractions () {
+    async getExtractions() {
         try {
-            const [extrs, metadata] = await db.query("SELECT * FROM entry WHERE type='extraction' ORDER BY date DESC");
-            console.log('The extractions entries are:', JSON.stringify(extrs));
-
-            return extrs;
+            const result = await db.query(this.extEntriesOrderedQuery);
+            return result.rows
         } catch (e) {
             console.error(e);
-            return toolkit.messages.error
+            return toolkit.error
         }
     }
-}
+};
 
 module.exports = new BalanceDAO();

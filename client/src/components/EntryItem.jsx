@@ -3,18 +3,16 @@ import { useDispatch } from 'react-redux';
 import { getEditForm, getAddEntries, getExtEntries } from '../actions/operationsActions';
 const axios = require('axios');
 
-export default function ListItem ({reason, id, amount, date, type}) {
+export default function ListItem ({id, reason, amount, date, type, categories}) {
     const dispatch = useDispatch();
-    let actionType;
-
-    if (type === 'adition') {
-        actionType = 'GET_ADD'
-    } else if (type === 'extraction') {
-        actionType = 'GET_EXT'
-    };
-    console.log(actionType);
-
-    const entry = {id, reason, amount, date, type}
+    const entry = {id, reason, amount, date, type, categories};
+    let showDate;
+    
+    if (date !== null) {
+        showDate = date.slice(0, 10);
+    } else {
+        showDate = date;
+    }
 
     async function handleDelete (e, id) {
         e.preventDefault();
@@ -22,12 +20,12 @@ export default function ListItem ({reason, id, amount, date, type}) {
 
         dispatch(getAddEntries());
         dispatch(getExtEntries());
-    }
+    };
 
-    async function handleEdit (e, {id, reason, amount, date}) {
+    async function handleEdit (e, {id, reason, amount, date, categories}) {
         e.preventDefault();
-        dispatch(getEditForm({id, reason, amount, date}));
-    }
+        dispatch(getEditForm({id, reason, amount, date, categories}));
+    };
 
     // useEffect(() => {
     //     dispatch(updateEntries(actionType));
@@ -41,6 +39,7 @@ export default function ListItem ({reason, id, amount, date, type}) {
                         <th>Reason</th>
                         <th>Amount</th>
                         <th>Date</th>
+                        <th>Categories</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -49,7 +48,8 @@ export default function ListItem ({reason, id, amount, date, type}) {
                     <tr>
                         <td>{reason}</td>
                         <td>{amount}</td>
-                        <td>{date}</td>
+                        <td>{showDate}</td>
+                        <td><ul>{categories.map((name) => <li>{name}</li>)}</ul></td>
                         <td><button onClick={(e) => handleEdit(e, entry)}>Edit</button></td>
                         <td><button onClick={(e) => handleDelete(e, id)}>Delete</button></td>
                     </tr>

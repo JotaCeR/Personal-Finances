@@ -1,52 +1,147 @@
-const Entry = require('./models/Entry');
 const db = require('../db');
 const toolkit = require('../toolkit');
 
 class EntryDAO {
-    async createEntry(entry) {
-        const dbEntry = await Entry.create(entry);
-        console.log(dbEntry.toJSON());
-        return dbEntry
+    constructor () {
+        this.addFullEntryQuery = "INSERT INTO entries(reason, amount, date, type) VALUES($1, $2, $3, $4) RETURNING id";
+        this.addReasonEntryQuery = "INSERT INTO entries(reason, amount, type) VALUES($1, $2, $3) RETURNING id";
+        this.addDateEntryQuery = "INSERT INTO entries(amount, date, type) VALUES($1, $2, $3) RETURNING id";
+        this.addNoneEntryQuery = "INSERT INTO entries(amount, type) VALUES($1, $2) RETURNING id";
+        this.selectLastTen = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON (entries.id = entries_categories.entry_id) JOIN categories ON (entries_categories.category_id = categories.id) ORDER BY date DESC FETCH FIRST 10 ROWS ONLY";
+        this.updateEntry = "UPDATE entries SET reason=$1, amount=$2, date=$3 WHERE id=$4";
+        this.deleteEntryById = "DELETE FROM entries WHERE id=$1";
+        this.getAll = "SELECT * FROM entries";
+        this.selectById = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON entries.id = entries_categories.entry_id JOIN categories ON entries_categories.category_id = categories.id WHERE entries.id=$1";
+        this.getAddWithCats = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON (entries.id = entries_categories.entry_id) JOIN categories ON (entries_categories.category_id = categories.id) WHERE entries.type = 'adition' ORDER BY entries.date DESC";
+        this.getExtWithCats = "SELECT entries.*, categories.name AS categories FROM entries INNER JOIN entries_categories ON (entries.id = entries_categories.entry_id) JOIN categories ON (entries_categories.category_id = categories.id) WHERE entries.type = 'extraction' ORDER BY entries.date DESC";
+    }
+
+    async createEntry(entry, keys) {
+        try {
+            // console.log("DAO:", entry, keys);
+            // const values = [];
+            
+            // for (const prop in entry) {
+            //     console.log(prop)
+            //     values.push(entry[prop])
+            // };
+
+            // console.log(values);
+            // console.log(keys.includes('reason'));
+            // console.log(keys.includes('date'));
+
+            if (keys.includes('reason') && keys.includes('date')) {
+                return await db.query(this.addFullEntryQuery, entry);
+                // return "New Entry added successfully!"
+            } else if (keys.includes('reason') && !keys.includes('date')) {
+                return await db.query(this.addReasonEntryQuery, entry);
+                // return "New Entry added successfully!"
+            } else if (keys.includes('date') && !keys.includes('reason')) {
+                return await db.query(this.addDateEntryQuery, entry);
+                // return "New Entry added successfully!"
+            } else {
+                return await db.query(this.addNoneEntryQuery, entry);
+                // return "New Entry added successfully!"
+            };
+        } catch (e) {
+            console.error(e);
+        };
     }
 
     async getLastEntries() {
         try {
-            const [lastEntries, metadata] = await db.query("SELECT * FROM entry ORDER BY date DESC FETCH FIRST 10 ROWS ONLY");
+            const lastEntries = await db.query(this.selectLastTen);
+            console.log(lastEntries.rows);
  
-            if (lastEntries.length > 0) {
-                console.log(JSON.stringify(lastEntries));
-            } else {
-                return toolkit.messages.error
-            }
+            if (lastEntries.rows.length <= 0) {
+                return toolkit.error
+            };
             
-            return lastEntries;
+            console.log("Length trigger not shot.")
+            return lastEntries.rows;
         } catch (e) {
             console.error(e);
-            return toolkit.messages.error;
+            return toolkit.error;
         };
     }
 
-    async modifyEntry(id, entry) {
+    async modifyEntry(values) {
         try {
-            for (let i = 0; i < entry.length; i++) {
-                await db.query(`UPDATE entry SET ${entry[i][0]}='${entry[i][1]}' WHERE id='${id}'`);
-            };
+            await db.query(this.updateEntry, values);
 
             return "Entry updated successfully.";
         } catch (e) {
             console.error(e);
-            return toolkit.messages.error;
+            return toolkit.error;
         }
     }
 
-    async deleteEntry(id) {
+    async deleteEntry(values) {
         try {
-            await db.query(`DELETE FROM entry WHERE id='${id}'`);
+            await db.query(this.deleteEntryById, values);
             return "Entry deleted succesfully.";
         } catch (e) {
             console.error(e);
-            return toolkit.messages.error;
+            return toolkit.error;
         };
+    }
+
+    // Development Method
+    async selectAll() {
+        try {
+            const result = await db.query(this.getAll);
+            // console.log(result);
+            return result.rows;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async selectOne(id) {
+        try {
+            const result = await db.query(this.selectById, id);
+            console.log(result);
+
+            if (result.rows.length <= 0) {
+                return toolkit.error;
+            }
+
+            return result.rows;
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async getAditionsWithCats() {
+        try {
+            const result = await db.query(this.getAddWithCats);
+            
+            if (result.rows.length <= 0) {
+                return toolkit.error;
+            };
+
+            return result.rows
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async getExtractionsWithCats() {
+        try {
+            const result = await db.query(this.getExtWithCats);
+            // console.log(result.rows);
+            if (result.rows.length <= 0) {
+                return toolkit.error;
+            };
+
+            return result.rows
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
     }
 }
 

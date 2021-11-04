@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getAddEntries, getExtEntries } from '../actions/operationsActions';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAddEntries, getExtEntries, getAllCategories, resetEntryCategories } from '../actions/operationsActions';
+import CategoryList from './CategoryList';
 const axios = require('axios');
 
 export default function EntryForm() {
     const [entry, setEntry] = useState({
-        reason: null,
+        reason: "",
         amount: 0,
-        date: new Date(),
-        type: null
+        date: "",
+        type: "",
     });
 
     const [errors, setErrors] = useState({
@@ -17,6 +18,14 @@ export default function EntryForm() {
     });
 
     const dispatch = useDispatch();
+    const typeVal = undefined;
+
+    useEffect(() => {
+        dispatch(getAllCategories());
+    }, [dispatch]);
+
+    let entryCategories = useSelector((state) => state.categories.entryCategories);
+    let categories = useSelector((state) => state.categories.allCategories);
     
     function validateEntry (entry) {
         let errors = {};
@@ -24,12 +33,21 @@ export default function EntryForm() {
         if (entry.amount <= 0) {
                 errors.amount = "Please especify a positive amount for the entry."
         };
-        if (entry.type === null) {
+        if (entry.type === null || entry.type === "") {
                 errors.type = "Please, choose if the entry is a substraction or adition."
         };
 
         return errors;
     };
+
+    useEffect(() => {
+        if (entryCategories !== null) {
+            setEntry((entry) => ({
+                ...entry,
+                categories: entryCategories
+            }));
+        };
+    }, [entryCategories]);
 
     function handleChange (e) {
         e.preventDefault();
@@ -45,19 +63,20 @@ export default function EntryForm() {
     async function addEntry (entry) {
         await axios({
             method: 'post',
-            url: 'http://localhost:3001/entries',
+            url: 'http://localhost:3001/entries/new',
             data: entry
         });
 
         dispatch(getAddEntries());
         dispatch(getExtEntries());
+        dispatch(resetEntryCategories());
 
         setEntry((entry) => ({
             ...entry,
-            reason: null,
+            reason: "",
             amount: 0,
-            date: new Date(),
-            type: null
+            date: "",
+            type: "",
         }));
     };
 
@@ -69,7 +88,7 @@ export default function EntryForm() {
         } else {
             return false
         }
-    }
+    };
 
     return (
         <div>
@@ -77,17 +96,19 @@ export default function EntryForm() {
                 <form onSubmit={(e) => {
                     e.preventDefault();
                     
-                    setEntry((entry) => ({
-                        ...entry,
-                        date: new Date(entry.date)
-                    }));
-
+                    if (entry.date !== null) {
+                        setEntry((entry) => ({
+                            ...entry,
+                            date: new Date(entry.date)
+                        }));
+                    };
+                    
                     addEntry(entry);
                 }}>
                     <div>
                         <h4>Operation:</h4>
                         <input name="reason" type="text" placeholder="Reason..." value={entry.reason} onChange={(e) => handleChange(e)} />
-                        <input name="amount" type="number" min="1" placeholder="Amount..." value={entry.amount} onChange={(e) => handleChange(e)} />
+                        <input name="amount" type="number" min="0" step="0.01" placeholder="Amount..." value={entry.amount} onChange={(e) => handleChange(e)} />
                     </div>
                     <div>
                         <h4>Operation Date:</h4>
@@ -96,10 +117,12 @@ export default function EntryForm() {
                     <div>
                         <h4>Operation Type:</h4>
                         <select name="type" value={entry.type} onChange={(e) => handleChange(e)} >
-                            <option value="">-- ---- --</option>
+                            <option value={typeVal}></option>
                             <option value="adition">Adition</option>
                             <option value="extraction">Extraction</option>
                         </select>
+                        <h4>Operation Categories:</h4>
+                        {Array.isArray(categories) ? <CategoryList categories={categories} entryCats={entryCategories} /> : "No categories found..."}
                     </div>
                     {validateButton(errors) ? <button type="submit" disabled>Add</button> : <button type="submit">Add</button>}
                 </form>
