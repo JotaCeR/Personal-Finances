@@ -18,17 +18,22 @@ router.get('/aditions', entryController.getAddsWithCats);
 // get extraction entries + categories associated route
 router.get('/extractions', entryController.getExtsWithCats);
 
+// get all entries route [Development Tool]
+router.get('/all', entryController.getAll);
+
+// get one entry by ID
+router.get('/one/:id', entryController.getOne);
+
 // post new Entry route
 router.post('/new', entryController.addEntry);
 
 // put existing Entry route
 router.put('/update/:id', entryController.modifyEntry);
 
+// delete existing Entry-Category relation route
+router.delete('/update/categories/:id', entryController.modifyEntryCategories);
+
 // delete existing Entry route
 router.delete('/delete/:id', entryController.deleteEntry);
-
-router.get('/all', entryController.getAll);
-
-router.get('/one/:id', entryController.getOne);
 
 module.exports = router;

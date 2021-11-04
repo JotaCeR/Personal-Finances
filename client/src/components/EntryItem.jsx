@@ -5,7 +5,7 @@ const axios = require('axios');
 
 export default function ListItem ({id, reason, amount, date, type, categories}) {
     const dispatch = useDispatch();
-    const entry = {id, reason, amount, date, type};
+    const entry = {id, reason, amount, date, type, categories};
     let showDate;
     
     if (date !== null) {
@@ -22,9 +22,9 @@ export default function ListItem ({id, reason, amount, date, type, categories}) 
         dispatch(getExtEntries());
     };
 
-    async function handleEdit (e, {id, reason, amount, date}) {
+    async function handleEdit (e, {id, reason, amount, date, categories}) {
         e.preventDefault();
-        dispatch(getEditForm({id, reason, amount, date}));
+        dispatch(getEditForm({id, reason, amount, date, categories}));
     };
 
     // useEffect(() => {

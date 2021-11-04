@@ -24,14 +24,13 @@ class EntryService {
             };
 
             // console.log("Entry to build on DAO:", builtEntry);
-            const getCats = await CategoryService.findCategory(categories);
 
             let insertedEntry = await EntryDAO.createEntry(builtEntry, entryKeys);
             insertedEntry = insertedEntry.rows[0];
             
             // console.log("Created Entry ID & Categories Array");
-            console.log(insertedEntry, getCats);
-            await CatEntryService.createRelation(insertedEntry.id, getCats);
+            console.log(insertedEntry, categories);
+            await CatEntryService.createRelation(insertedEntry.id, categories);
 
             return insertedEntry;
         } catch (e) {
@@ -67,6 +66,19 @@ class EntryService {
             const valuesArray = Object.values(entry);
             valuesArray.push(id);
             return await EntryDAO.modifyEntry(valuesArray);
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async modifyEntryCategories(id, category) {
+        try {
+            console.log(entr, toolkit.servCall);
+            const search_category = await CategoryService.findCategory([category]);
+            const cat_id = search_category[0].id;
+            console.log("Search result:", cat_id);
+            return await CatEntryService.deleteRelationByDoubleId(id, cat_id);
         } catch (e) {
             console.error(e);
             return toolkit.error;

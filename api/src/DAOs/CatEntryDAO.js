@@ -6,6 +6,7 @@ class CatEntryDAO {
         this.insertRelationQuery = "INSERT INTO entries_categories(entry_id, category_id) VALUES ($1, $2)";
         this.deleteRelationsByEntryIdQuery = "DELETE FROM entries_categories WHERE entry_id=$1";
         this.deleteRelationsByCategoryIdQuery = "DELETE FROM entries_categories WHERE category_id=$1";
+        this.deleteRelationByDoubleIdQuery = "DELETE FROM entries_categories WHERE entry_id=$1 AND category_id=$2";
     }
 
     async createRelation(queryArray, loopLength) {
@@ -34,6 +35,16 @@ class CatEntryDAO {
         try {
             await db.query(this.deleteRelationsByCategoryIdQuery, values);
             return "Relationships deleted succesfully!";
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async deleteRelationByDoubleId (values) {
+        try {
+            await db.query(this.deleteRelationByDoubleIdQuery, values);
+            return "Relationship deleted successfully!";
         } catch (e) {
             console.error(e);
             return toolkit.error;

@@ -19,7 +19,7 @@ class CatEntryService {
     async deleteRelationsByEntryId(id) {
         try {
             await CatEntryDAO.deleteRelationsByEntryId([id]);
-            return "Relation deleted successfully!";
+            return "Relations deleted successfully!";
         } catch (e) {
             console.error(e);
             return toolkit.error;
@@ -29,6 +29,17 @@ class CatEntryService {
     async deleteRelationsByCategoryId(id) {
         try {
             await CatEntryDAO.deleteRelationsByCategoryId([id]);
+            return "Relations deleted successfully!";
+        } catch (e) {
+            console.error(e);
+            return toolkit.error;
+        }
+    }
+
+    async deleteRelationByDoubleId(entryId, categoryId) {
+        try {
+            console.log(`Category ID: ${categoryId}`);
+            await CatEntryDAO.deleteRelationByDoubleId([entryId, categoryId]);
             return "Relation deleted successfully!";
         } catch (e) {
             console.error(e);

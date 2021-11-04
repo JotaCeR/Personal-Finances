@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getEditForm, getAddEntries, getExtEntries } from '../actions/operationsActions';
 const axios = require('axios');
 
-export default function EditForm({id, reason, amount, date, type}) {
+export default function EditForm({id, reason, amount, date, type, categories}) {
     const defaultEntry = {reason, amount, date};
     const dispatch = useDispatch();
     const [entry, setEntry] = useState(defaultEntry);
@@ -25,6 +25,21 @@ export default function EditForm({id, reason, amount, date, type}) {
         });
 
         dispatch(getEditForm(null));
+        dispatch(getAddEntries());
+        dispatch(getExtEntries());
+    };
+
+    async function updateCategories(e) {
+        e.preventDefault();
+
+        await axios({
+            method: 'delete',
+            url: `http://localhost:3001/entries/update/categories/${id}`,
+            data: {category: e.target.name}
+        });
+
+        window.alert(`${e.target.name} relation with entry: ${reason} deleted`);
+
         dispatch(getAddEntries());
         dispatch(getExtEntries());
     };
@@ -63,6 +78,12 @@ export default function EditForm({id, reason, amount, date, type}) {
                     <h4>Date:</h4>
                     <input name="date" type="date" placeholder={entry.date} value={entry.date}
                     onChange={(e) => handleChange(e)} />
+                </div>
+                <div>
+                    <h4>Categories</h4>
+                    <ul>
+                        {categories.map((name) => <li>{name}  <button type="button" name={name} onClick={(e) => updateCategories(e)}>X</button></li>)}
+                    </ul>
                 </div>
                 <div>
                     <button type="submit">Confirm</button><button type="reset">Reset</button>

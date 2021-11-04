@@ -28,7 +28,7 @@ export default function ABM() {
             <EntryForm />
             <CategoryForm />
             <div>
-                {editingEntry ? <EditForm id={editingEntry.id} reason={editingEntry.reason} amount={editingEntry.amount} date={editingEntry.date} type={editingEntry.type} /> : null}
+                {editingEntry ? <EditForm id={editingEntry.id} reason={editingEntry.reason} amount={editingEntry.amount} date={editingEntry.date} type={editingEntry.type} categories={editingEntry.categories} /> : null}
                 <div>
                     <h4>Extractions Histoy</h4>
                     <ul>

@@ -59,7 +59,20 @@ const modifyEntry = async (req, res) => {
         console.error(e);
         res.status(400).send(toolkit.error);
     }
-}
+};
+
+const modifyEntryCategories = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { category } = req.body;
+        console.log(`EntryID: ${id}, Category Name: ${category}`);
+        const result = await EntryService.modifyEntryCategories(id, category);
+        res.status(200).json(result);
+    } catch (e) {
+        console.error(e);
+        res.status(400).send(toolkit.error);
+    }
+};
 
 const deleteEntry = async (req, res) => {
     try {
@@ -71,7 +84,7 @@ const deleteEntry = async (req, res) => {
         console.error(error);
         res.status(400).send(toolkit.error);
     }
-}
+};
 
 const getAll = async (req, res) => {
     try {
@@ -81,7 +94,7 @@ const getAll = async (req, res) => {
         console.error(e);
         res.status(400).send(toolkit.error);
     }
-}
+};
 
 const getOne = async (req, res) => {
     try {
@@ -93,7 +106,7 @@ const getOne = async (req, res) => {
         console.error(e);
         return toolkit.error;
     }
-}
+};
 
 const getAddsWithCats = async (req, res) => {
     try {
@@ -103,7 +116,7 @@ const getAddsWithCats = async (req, res) => {
         console.error(e);
         return toolkit.error;
     }
-}
+};
 
 const getExtsWithCats = async (req, res) => {
     try {
@@ -113,7 +126,7 @@ const getExtsWithCats = async (req, res) => {
         console.error(e);
         return toolkit.error;
     }
-}
+};
 
 module.exports = {
     addEntry,
@@ -126,4 +139,5 @@ module.exports = {
     getOne,
     getAddsWithCats,
     getExtsWithCats,
-}
+    modifyEntryCategories,
+};
