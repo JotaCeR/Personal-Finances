@@ -30,7 +30,7 @@ export default function CategoryDisplay() {
     return (
         <div>
             <ul>
-                {categories ? categories.map((category) => <li key={category.id} >{category.name} <button type="button" name={category.name} value={category.id} onClick={(e) => handleDelete(e)} >X</button></li>) : null}
+                {Array.isArray(categories) ? categories.map((category) => <li>{category.name} <button type="button" name={category.name} value={category.id} onClick={(e) => handleDelete(e)} >X</button></li>) : <h6>{categories}</h6>}
             </ul>
         </div>
     )

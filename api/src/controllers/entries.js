@@ -86,6 +86,7 @@ const deleteEntry = async (req, res) => {
     }
 };
 
+// Development controller.
 const getAll = async (req, res) => {
     try {
         const finalArray = await EntryService.getAll();

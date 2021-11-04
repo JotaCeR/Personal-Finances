@@ -35,13 +35,13 @@ export default function ABM() {
                 <div>
                     <h4>Extractions Histoy</h4>
                     <ul>
-                        {extEntries ? extEntries.map((entry) => {return <EntryItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : "Empty..."}
+                        {Array.isArray(extEntries) ? extEntries.map((entry) => {return <EntryItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : extEntries}
                     </ul>
                 </div>
                 <div>
                     <h4>Additions Histoy</h4>
                     <ul>
-                        {Array.isArray(addEntries) && addEntries.length > 0 ? addEntries.map((entry) => {return <EntryItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : "Empty..."}
+                        {Array.isArray(addEntries) && addEntries.length > 0 ? addEntries.map((entry) => {return <EntryItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : addEntries}
                     </ul>
                 </div>
             </div>

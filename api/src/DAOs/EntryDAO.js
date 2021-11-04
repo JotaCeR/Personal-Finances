@@ -51,11 +51,13 @@ class EntryDAO {
     async getLastEntries() {
         try {
             const lastEntries = await db.query(this.selectLastTen);
-            // console.log(lastEntries.rows)
+            console.log(lastEntries.rows);
  
             if (lastEntries.rows.length <= 0) {
                 return toolkit.error
-            }
+            };
+            
+            console.log("Length trigger not shot.")
             return lastEntries.rows;
         } catch (e) {
             console.error(e);
@@ -84,6 +86,7 @@ class EntryDAO {
         };
     }
 
+    // Development Method
     async selectAll() {
         try {
             const result = await db.query(this.getAll);
@@ -99,6 +102,11 @@ class EntryDAO {
         try {
             const result = await db.query(this.selectById, id);
             console.log(result);
+
+            if (result.rows.length <= 0) {
+                return toolkit.error;
+            }
+
             return result.rows;
         } catch (e) {
             console.error(e);
@@ -109,7 +117,11 @@ class EntryDAO {
     async getAditionsWithCats() {
         try {
             const result = await db.query(this.getAddWithCats);
-            // console.log(result.rows);
+            
+            if (result.rows.length <= 0) {
+                return toolkit.error;
+            };
+
             return result.rows
         } catch (e) {
             console.error(e);
@@ -121,6 +133,10 @@ class EntryDAO {
         try {
             const result = await db.query(this.getExtWithCats);
             // console.log(result.rows);
+            if (result.rows.length <= 0) {
+                return toolkit.error;
+            };
+
             return result.rows
         } catch (e) {
             console.error(e);

@@ -13,6 +13,11 @@ class BalanceDAO {
         try {
             const adds = await db.query(this.addSumQuery);
             // console.log(adds.rows)
+
+            if (adds.rows.length <= 0) {
+                return toolkit.error;
+            }
+
             return adds.rows;
         } catch (e) {
             console.error(e);
@@ -23,6 +28,11 @@ class BalanceDAO {
     async getExtractionsSum () {
         try {
             const exts = await db.query(this.extSumQuery);
+
+            if (exts.rows.length <= 0) {
+                return toolkit.error;
+            }
+
             return exts.rows;
         } catch (e) {
             console.error(e);

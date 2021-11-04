@@ -1,9 +1,10 @@
 import React from 'react';
 
 export default function HomeItem({id, reason, amount, date, type, categories}) {
-    let showDate;
+    let showDate = date;
 
-    if (date !== null) {
+    console.log(date);
+    if (date !== null || date !== undefined) {
         showDate = date.slice(0, 10);
     } else {
         showDate = date;

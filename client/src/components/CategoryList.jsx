@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setEntryCategories } from '../actions/operationsActions';
-import CategoryItem from './CategoryItem';
+import CategorySelect from './CategorySelect';
 
 export default function CategoryList ({categories, entryCats}) {
     const dispatch = useDispatch();
@@ -47,7 +47,7 @@ export default function CategoryList ({categories, entryCats}) {
     }
 
     function dynamicInputs() {
-        return checks.map((category, i) => <CategoryItem key={i} category={category} i={i} changeHandler={handleChange} categoryRemover={removeCategory} />)
+        return checks.map((category, i) => <CategorySelect key={i} category={category} i={i} changeHandler={handleChange} categoryRemover={removeCategory} />)
     }
 
     return (

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllCategories } from '../actions/operationsActions';
+import CategoryOption from './CategoryOption';
 
 export default function CategoryItem ({category, i, changeHandler, categoryRemover}) {
     const dispatch = useDispatch();
@@ -14,8 +15,8 @@ export default function CategoryItem ({category, i, changeHandler, categoryRemov
     return (
         <div id={i}>
             <select value={category} onChange={(e) => changeHandler(i, e)} >
-                <option key='194tn12kjfenf12345#021385$2315213' value={''}></option>
-                {categories ? categories.map(cat => <option key={cat.id} value={cat.name}>{cat.name}</option>) : null}
+                <option key='defaultValue' value={''}></option>
+                {Array.isArray(categories) ? categories.map(cat => <CategoryOption key={cat.id} value={cat.name} name={cat.name} />) : null}
             </select>
             <button onClick={(e) => categoryRemover(i)}>Remove</button>
         </div>

@@ -31,6 +31,10 @@ class CategoryDAO {
                 results.push(search.rows[0]);
             };
 
+            if (results.rows.length <= 0) {
+                return toolkit.error;
+            };
+
             console.log("Full category search:", results);
             return results;
         } catch (e) {
@@ -42,6 +46,10 @@ class CategoryDAO {
     async findAllCategories () {
         try {
             const result = await db.query(this.findAllCategoryQuery);
+
+            if (result.rows.length <= 0) {
+                return toolkit.error;
+            }
 
             return result.rows;
         } catch (e) {

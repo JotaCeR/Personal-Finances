@@ -122,7 +122,7 @@ export default function EntryForm() {
                             <option value="extraction">Extraction</option>
                         </select>
                         <h4>Operation Categories:</h4>
-                        {categories && categories.length > 0 ? <CategoryList categories={categories} entryCats={entryCategories} /> : "Loading categories..."}
+                        {Array.isArray(categories) ? <CategoryList categories={categories} entryCats={entryCategories} /> : "No categories found..."}
                     </div>
                     {validateButton(errors) ? <button type="submit" disabled>Add</button> : <button type="submit">Add</button>}
                 </form>

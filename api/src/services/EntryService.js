@@ -43,6 +43,11 @@ class EntryService {
         try {
             console.log(entr, toolkit.servCall);
             const lasts = await EntryDAO.getLastEntries();
+
+            if (lasts === toolkit.error) {
+                return lasts;
+            }
+
             const loopLength = lasts.length;
             let handledLastEntries = [];
             
@@ -96,6 +101,7 @@ class EntryService {
         };
     }
 
+    // Development Method
     async getAll() {
         try {
             console.log(entr, toolkit.servCall);
@@ -138,6 +144,11 @@ class EntryService {
         try {
             console.log(entr, toolkit.servCall);
             const adds = await EntryDAO.getAditionsWithCats();
+
+            if (adds === toolkit.error) {
+                return adds;
+            }
+
             const loopLength = adds.length
             let handledAditions = [];
 
@@ -159,6 +170,11 @@ class EntryService {
         try {
             console.log(entr, toolkit.servCall);
             const exts = await EntryDAO.getExtractionsWithCats();
+
+            if (exts === toolkit.error) {
+                return exts;
+            }
+            
             const loopLength = exts.length;
             let handledExtractions = [];
 
