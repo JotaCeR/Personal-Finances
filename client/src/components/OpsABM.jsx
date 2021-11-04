@@ -6,6 +6,7 @@ import EditForm from './EditForm';
 import CategoryForm from './CategoryForm';
 import { getAddEntries, getExtEntries } from '../actions/operationsActions';
 import NavBar from './NavBar';
+import CategoryDisplay from './CategoryDisplay';
 
 export default function ABM() {
     const dispatch = useDispatch();
@@ -43,6 +44,10 @@ export default function ABM() {
                         {Array.isArray(addEntries) && addEntries.length > 0 ? addEntries.map((entry) => {return <EntryItem key={entry.id} reason={entry.reason} id={entry.id} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : "Empty..."}
                     </ul>
                 </div>
+            </div>
+            <div>
+                <h4>Available Categories</h4>
+                <CategoryDisplay />
             </div>
         </div>
     )

@@ -39,6 +39,7 @@ const deleteCategory = async (req, res) => {
     try {
         console.log(toolkit.conCall);
         const { id } = req.params;
+        console.log(id);
         const deletedCategory = await CategoryService.deleteCategory(id);
         res.status(200).json(deletedCategory);
     } catch (e) {

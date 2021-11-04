@@ -40,9 +40,9 @@ export default function EditForm({id, reason, amount, date, categories}) {
 
         window.alert(`${e.target.name} relation with entry: ${reason} deleted`);
 
+        dispatch(getEditForm(null));
         dispatch(getAddEntries());
         dispatch(getExtEntries());
-        dispatch(getEditForm({id, reason, amount, date, categories}));
     };
 
     function cancelEdit(e) {
