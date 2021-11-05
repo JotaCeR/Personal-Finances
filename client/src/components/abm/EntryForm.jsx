@@ -127,7 +127,7 @@ export default function EntryForm() {
                         <h4 className="text-lightblue-600 text-xl font-sub-title self-start mb-3">Operation Categories:</h4>
                         {Array.isArray(categories) ? <CategoryList categories={categories} entryCats={entryCategories} /> : "No categories found..."}
                     </div>
-                    {validateButton(errors) ? <button type="submit" disabled className="bg-grey-800 px-4 py-2 rounded-lg font-normal text-grey-500 hover:text-grey-800 self-end shadow-inner">Add</button> : <button type="submit" className="bg-forest-700 px-4 py-2 rounded-lg font-normal text-aquamarine-50 shadow-2xl self-end hover:text-pink-600 focus:shadow-inner">Add</button>}
+                    {validateButton(errors) ? <button type="submit" disabled className="bg-grey-800 px-4 py-2 rounded-lg font-normal text-grey-500 self-end shadow-inner">Add</button> : <button type="submit" className="bg-forest-700 px-4 py-2 rounded-lg font-normal text-aquamarine-50 shadow-2xl self-end hover:text-pink-600 focus:shadow-inner">Add</button>}
                 </form>
             </div>
     )
