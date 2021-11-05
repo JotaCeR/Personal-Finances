@@ -27,15 +27,17 @@ export default function Home() {
                 <h1 className="font-title text-7xl tracking-wide text-aquamarine-800">My Personal Finances App</h1>
                 <NavBar />
             </div>
-            <div>
-                <h2>Current Balance</h2>
-                <p>{balance}</p>
-            </div>
-            <div>
-                <h2>Last Entries</h2>
-                <ul>
-                    {Array.isArray(entries) ? entries.map((entry) => {return <HomeItem key={entry.id} id={entry.id} reason={entry.reason} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : <li>{entries}</li>}
-                </ul>
+            <div className="flex flex-row w-9/12 justify-between items-start">
+                <div className="bg-forest-300 w-96 h-36 rounded-lg shadow-2xl flex flex-col justify-evenly items-center border-2 border-forest-200">
+                    <h2 className="font-sub-title text-2xl text-pink-700" >Current Balance</h2>
+                    <p className="font-normal text-5xl text-lightblue-600">{balance}</p>
+                </div>
+                <div className="bg-forest-300 w-3/5 rounded-lg shadow-2xl flex flex-col justify-evenly items-center border-2 border-forest-200 p-4">
+                    <h2 className="font-sub-title text-2xl text-pink-700">Last Entries</h2>
+                    <ul>
+                        {Array.isArray(entries) ? entries.map((entry) => {return <HomeItem key={entry.id} id={entry.id} reason={entry.reason} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : <li className="font-normal text-lg leading-5 text-lightblue-600">{entries}</li>}
+                    </ul>
+                </div>
             </div>
         </div>
     )
