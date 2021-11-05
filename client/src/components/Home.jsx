@@ -22,9 +22,11 @@ export default function Home() {
     useEffect(() => {}, [entries]);
 
     return (
-        <div>
-            <h1>My Personal Finances App</h1>
-            <NavBar />
+        <div className="flex flex-col justify-start items-center w-full">
+            <div className="bg-gradient-to-br from-lightblue-400 to-green-600 w-9/12 h-40 flex flex-col justify-around items-center shadow-2xl rounded-2xl my-6">
+                <h1 className="font-title text-7xl tracking-wide text-aquamarine-800">My Personal Finances App</h1>
+                <NavBar />
+            </div>
             <div>
                 <h2>Current Balance</h2>
                 <p>{balance}</p>
