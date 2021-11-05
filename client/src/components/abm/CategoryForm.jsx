@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getAllCategories } from '../actions/operationsActions';
+import { getAllCategories } from '../../actions/operationsActions';
 const axios = require('axios');
 
 export default function CategoryForm() {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getEditForm, getAddEntries, getExtEntries } from '../actions/operationsActions';
+import { getEditForm, getAddEntries, getExtEntries } from '../../actions/operationsActions';
 const axios = require('axios');
 
 export default function EditForm({id, reason, amount, date, categories}) {

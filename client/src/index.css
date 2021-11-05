@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.glob-sel::selection {
+    background-color: #365314;
+    color: #F43F5E;
+};

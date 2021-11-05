@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { getEditForm, getAddEntries, getExtEntries } from '../actions/operationsActions';
+import { getEditForm, getAddEntries, getExtEntries } from '../../actions/operationsActions';
 const axios = require('axios');
 
 export default function ListItem ({id, reason, amount, date, type, categories}) {

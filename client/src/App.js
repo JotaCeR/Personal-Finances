@@ -1,6 +1,6 @@
 import { Route } from 'react-router-dom';
-import Home from './components/Home';
-import ABM from './components/OpsABM';
+import Home from './components/home/Home';
+import ABM from './components/abm/OpsABM';
 
 function App() {
   return (

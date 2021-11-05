@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllCategories, getAddEntries, getExtEntries } from '../actions/operationsActions';
+import { getAllCategories, getAddEntries, getExtEntries } from '../../actions/operationsActions';
 const axios = require('axios');
 
 export default function CategoryDisplay() {
