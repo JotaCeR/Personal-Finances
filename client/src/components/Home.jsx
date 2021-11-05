@@ -35,7 +35,7 @@ export default function Home() {
                 <div className="bg-forest-300 w-3/5 rounded-lg shadow-2xl flex flex-col justify-evenly items-center border-2 border-forest-200 p-4">
                     <h2 className="font-sub-title text-2xl text-pink-700">Last Entries</h2>
                     <ul>
-                        {Array.isArray(entries) ? entries.map((entry) => {return <HomeItem key={entry.id} id={entry.id} reason={entry.reason} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : <li className="font-normal text-lg leading-5 text-lightblue-600">{entries}</li>}
+                        {Array.isArray(entries) ? entries.map((entry) => {return <HomeItem key={entry.id} id={entry.id} reason={entry.reason} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : <li className="font-normal text-xl font-semibold leading-5 text-lightblue-600">{entries}</li>}
                     </ul>
                 </div>
             </div>
