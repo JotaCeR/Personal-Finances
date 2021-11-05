@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/index.css';
 
 export default function HomeItem({id, reason, amount, date, type, categories}) {
     let showDate = date;
@@ -11,9 +12,9 @@ export default function HomeItem({id, reason, amount, date, type, categories}) {
     }
 
     return (
-        <li id={id}>
-            <table>
-                <thead>
+        <li id={id} className="flex flex-row text-center">
+            <table className="table-auto">
+                <thead className="text-lightblue-600 font-sub-title">
                     <tr>
                         <th>Reason</th>
                         <th>Amount</th>
@@ -22,12 +23,12 @@ export default function HomeItem({id, reason, amount, date, type, categories}) {
                         <th>Categories</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="font-normal">
                     <tr>
-                        <td>{reason}</td>
-                        <td>{amount}</td>
-                        <td>{showDate}</td>
-                        <td>{type}</td>
+                        <td className="border-r-2 border-forest-500">{reason}</td>
+                        <td className="border-r-2 border-forest-500">{amount}</td>
+                        <td className="border-r-2 border-forest-500">{showDate}</td>
+                        <td className="border-r-2 border-forest-500">{type}</td>
                         <td><ul>{categories.map((name) => <li>{name}</li>)}</ul></td>
                     </tr>
                 </tbody>

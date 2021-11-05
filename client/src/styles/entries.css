@@ -1,0 +1,36 @@
+.ListItem {
+    text-align: center;
+  }
+  
+  .row {
+    height: 3rem;
+  }
+  
+  .row > ul {
+    display: grid;
+    grid-template: 100% / 1fr 1fr 1fr 1fr;
+  }
+  
+  .row li {
+    list-style: none;
+  }
+  
+  .column .--reason {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2
+  }
+  
+  .column .--amount {
+    grid-row: 1 / 2;
+    grid-column: 2 / 3
+  }
+  
+  .column .--date {
+    grid-row: 1 / 2;
+    grid-column: 3 / 4
+  }
+  
+  .column .--categories {
+    grid-row: 1 / 2;
+    grid-column: 4 / 5
+  }

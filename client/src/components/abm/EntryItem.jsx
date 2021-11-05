@@ -1,6 +1,9 @@
 import React from 'react';
+import '../../styles/entries.css';
 import { useDispatch } from 'react-redux';
-import { getEditForm, getAddEntries, getExtEntries } from '../actions/operationsActions';
+import { getEditForm, getAddEntries, getExtEntries } from '../../actions/operationsActions';
+import { FiXCircle as Xbut } from "react-icons/fi";
+import { FiEdit3 as Ebut} from "react-icons/fi";
 const axios = require('axios');
 
 export default function ListItem ({id, reason, amount, date, type, categories}) {
@@ -32,29 +35,27 @@ export default function ListItem ({id, reason, amount, date, type, categories}) 
     // }, [actionType, dispatch, handleDelete]);
 
     return (
-        <li id={id}>
-            <table>
-                <thead>
+        <li id={id} className="flex flex-row text-center">
+            <table className="table-auto">
+                <thead className="text-lightblue-600 font-sub-title">
                     <tr>
                         <th>Reason</th>
                         <th>Amount</th>
                         <th>Date</th>
                         <th>Categories</th>
-                        <th></th>
-                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="font-normal">
                     <tr>
-                        <td>{reason}</td>
-                        <td>{amount}</td>
-                        <td>{showDate}</td>
+                        <td className="border-r-2 border-forest-500">{reason}</td>
+                        <td className="border-r-2 border-forest-500">{amount}</td>
+                        <td className="border-r-2 border-forest-500">{showDate}</td>
                         <td><ul>{categories.map((name) => <li>{name}</li>)}</ul></td>
-                        <td><button onClick={(e) => handleEdit(e, entry)}>Edit</button></td>
-                        <td><button onClick={(e) => handleDelete(e, id)}>Delete</button></td>
                     </tr>
                 </tbody>
             </table>
+            <button className="mx-4 text-aquamarine-600 hover:text-lightblue-300" onClick={(e) => handleEdit(e, entry)}><Ebut size="22"/></button>
+            <button className="text-pink-500 hover:text-lightblue-300" onClick={(e) => handleDelete(e, id)}><Xbut size="22" /></button>
         </li>
     )
 };
