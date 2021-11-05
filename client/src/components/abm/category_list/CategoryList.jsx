@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../../../styles/index.css';
 import { useDispatch } from 'react-redux';
 import { setEntryCategories } from '../../../actions/operationsActions';
 import CategorySelect from './CategorySelect';
@@ -53,7 +54,7 @@ export default function CategoryList ({categories, entryCats}) {
     return (
         <div className="w-full flex flex-col justify-start items-center font-normal">
             {dynamicInputs()}
-            <button className="bg-forest-700 px-2 py-1 rounded-lg font-normal text-aquamarine-50 text-xs shadow-2xl self-end hover:text-pink-600 focus:shadow-inner" type="button" name="Add Category" onClick={(e) => newCategory()}>Add Category</button>
+            <button className="glob-sel bg-forest-700 px-2 py-1 rounded-lg font-normal text-aquamarine-50 text-xs shadow-2xl self-end hover:text-pink-600 focus:shadow-inner" type="button" name="Add Category" onClick={(e) => newCategory()}>Add Category</button>
         </div>
     )
 };

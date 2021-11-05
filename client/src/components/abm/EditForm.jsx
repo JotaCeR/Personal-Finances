@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../styles/index.css';
 import { useDispatch } from 'react-redux';
 import { getEditForm, getAddEntries, getExtEntries } from '../../actions/operationsActions';
 const axios = require('axios');
@@ -52,7 +53,7 @@ export default function EditForm({id, reason, amount, date, categories}) {
     };
 
     return (
-        <div>
+        <div className="glob-sel">
             <h3>Edit Entry</h3>
             <form onSubmit={(e) => {
                 e.preventDefault();

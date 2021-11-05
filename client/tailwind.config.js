@@ -32,5 +32,7 @@ module.exports = {
       italic: ['hover'],
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')
+  ],
 }
