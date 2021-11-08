@@ -14,14 +14,16 @@ export default function CategoryDisplay() {
         dispatch(getAllCategories());
     }, [dispatch]);
 
-    async function handleDelete(e) {
+    async function handleDelete(e, name, id) {
         e.preventDefault();
 
-        window.alert(`Category: ${e.target.name} successfully deleted!`);
+        window.alert(`Category: ${name} successfully deleted!`);
+
+        console.log(`The id: ${id} & the name: ${name}`);
 
         await axios({
             method: 'delete',
-            url: `http://localhost:3001/categories/delete/${e.target.value}`
+            url: `http://localhost:3001/categories/delete/${id}`
         });
 
         dispatch(getAllCategories());
@@ -32,7 +34,7 @@ export default function CategoryDisplay() {
     return (
         <div className="font-normal glob-sel" >
             <ul>
-                {Array.isArray(categories) ? categories.map((category) => <li className="glob-sel text-grey-900 font-extrabold" key={category.id}>{category.name} <button className="glob-sel text-pink-400 hover:text-lightblue-200" type="button" name={category.name} value={category.id} onClick={(e) => handleDelete(e)} ><Xbut size="14" /></button></li>) : categories}
+                {Array.isArray(categories) ? categories.map((category) => <li className="glob-sel text-grey-900 font-extrabold" key={category.id}>{category.name} <button className="delBut glob-sel text-pink-400 hover:text-lightblue-200" type="button" onClick={(e) => handleDelete(e, category.name, category.id)} ><Xbut size="14" /></button></li>) : <div className="font-normal text-xl font-semibold leading-5 text-lightblue-600">{categories}</div>}
             </ul>
         </div>
     )
