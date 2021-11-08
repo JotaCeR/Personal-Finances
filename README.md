@@ -6,7 +6,7 @@ For running the project you will need to clone the repository locally on your ow
 <ul>
   <li>Open a <strong>psql</strong> terminal and create a new database called: <i>personal_finances</i>.</li>
   <li>Open <strong>/api</strong> directory inside the project's directory and create a new <strong>.env</strong> file.</li>
-  <li>Inside your recently created <strong>.env</strong> file type three (3) values: <i>DB_USER</i>, <i>DB_PASSWORD</i> & </i>DB_HOST</i>; fill them equal to your <strong>psql</strong> user and password, finally set the host equal to <strong>localhost</strong>. As <i>environment</i> variables.</li>
+  <li>Inside your recently created <strong>.env</strong> file type three (3) <i>environment</i> variables: <i>DB_USER</i>, <i>DB_PASSWORD</i> & </i>DB_HOST</i>; fill them equal to your <strong>psql</strong> user and password, finally set the host equal to <strong>localhost</strong>.</li>
   <li>Get into <strong>/client</strong> directory inside the project's directory with a terminal and run <strong>npm install</strong> command.</li>
   <li>Get into <strong>/api</strong> directory inside the project's directory with a terminal and run <strong>npm install</strong> command.</li>
   <li>Wait until the installation finishes and then run <strong>npm start</strong> in both terminals to rise the <strong>client server</strong> and the <strong>API REST</strong>.</li>
