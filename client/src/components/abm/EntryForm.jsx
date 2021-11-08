@@ -15,7 +15,7 @@ export default function EntryForm() {
 
     const [errors, setErrors] = useState({
         amount: "Please especify a positive amount for the entry.",
-        type: "Please, choose if the entry is a substraction or adition."
+        type: "Please, choose if the entry is a substraction or adition operation.",
     });
 
     const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default function EntryForm() {
                 errors.amount = "Please especify a positive amount for the entry."
         };
         if (entry.type === null || entry.type === "") {
-                errors.type = "Please, choose if the entry is a substraction or adition."
+                errors.type = "Please, choose if the entry is a substraction or adition operation."
         };
 
         return errors;
@@ -96,14 +96,14 @@ export default function EntryForm() {
                 <h3 className="glob-sel font-sub-title text-2xl text-pink-700 self-center">New Entry</h3>
                 <form className="w-full h-full flex flex-col justify-start items-start" onSubmit={(e) => {
                     e.preventDefault();
-                    
-                    if (entry.date !== null) {
+
+                    if (entry.date !== null || entry.date !== "") {
                         setEntry((entry) => ({
                             ...entry,
                             date: new Date(entry.date)
                         }));
                     };
-                    
+
                     addEntry(entry);
                 }}>
                     <div className="flex flex-col justify-start items-center my-3.5 w-full">
@@ -127,7 +127,7 @@ export default function EntryForm() {
                         <h4 className="glob-sel text-lightblue-600 text-xl font-sub-title self-start mb-3">Operation Categories:</h4>
                         {Array.isArray(categories) ? <CategoryList categories={categories} entryCats={entryCategories} /> : "No categories found..."}
                     </div>
-                    {validateButton(errors) ? <button type="submit" disabled className="bg-grey-800 px-4 py-2 rounded-lg font-normal text-grey-500 self-end shadow-inner">Add</button> : <button type="submit" className="bg-forest-700 px-4 py-2 rounded-lg font-normal text-aquamarine-50 shadow-2xl self-end hover:text-pink-600 focus:shadow-inner">Add</button>}
+                    {validateButton(errors) ? <button type="submit" disabled className="bg-grey-800 px-4 py-2 mr-3 rounded-lg font-normal text-grey-500 self-end shadow-inner">Add</button> : <button type="submit" className="bg-forest-700 px-4 py-2 mr-3 rounded-lg font-normal text-aquamarine-50 shadow-2xl self-end hover:text-pink-600 focus:shadow-inner">Add</button>}
                 </form>
             </div>
     )
