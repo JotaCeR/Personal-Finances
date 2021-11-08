@@ -33,7 +33,7 @@ export default function Home() {
                     <h2 className="glob-sel font-sub-title text-2xl text-pink-700" >Current Balance</h2>
                     <p className="glob-sel font-normal text-5xl text-lightblue-600">{Math.round((balance + Number.EPSILON) * 100) / 100}</p>
                 </div>
-                <div className="bg-forest-300 w-3/5 h-36 rounded-lg shadow-2xl flex flex-col justify-evenly items-center border-2 border-forest-200 p-4">
+                <div className="bg-forest-300 w-3/5 h-72 rounded-lg shadow-2xl flex flex-col justify-evenly items-center border-2 border-forest-200 p-2 overflow-y-scroll scrollbar scrollbar-thumb-pink-500 scrollbar-track-pink-900">
                     <h2 className="glob-sel font-sub-title text-2xl text-pink-700">Last Entries</h2>
                     <ul>
                         {Array.isArray(entries) ? entries.map((entry) => {return <HomeItem key={entry.id} id={entry.id} reason={entry.reason} amount={entry.amount} date={entry.date} type={entry.type} categories={entry.categories} />}) : <li className="font-normal text-xl font-semibold leading-5 text-lightblue-600">{entries}</li>}
