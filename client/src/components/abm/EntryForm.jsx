@@ -127,6 +127,7 @@ export default function EntryForm() {
                     </div>
                     <div className="flex flex-col justify-start items-center my-3.5 w-full">
                         <h4 className="glob-sel text-lightblue-600 text-xl font-sub-title self-start mb-3">Operation Categories:</h4>
+                        {entryCategories && entryCategories.length > 0 ? null : <p className="bg-pink-600 rounded py-1 px-2 mt-3 mb-1 font-normal text-xs text-grey-200">Plase, remember to add at least 1 category for the operation.</p>}
                         {Array.isArray(categories) ? <CategoryList categories={categories} entryCats={entryCategories} /> : "No categories found..."}
                     </div>
                     {validateButton(errors) ? <button type="submit" disabled className="bg-grey-800 px-4 py-2 mr-3 rounded-lg font-normal text-grey-500 self-end shadow-inner">Add</button> : <button type="submit" className="bg-forest-700 px-4 py-2 mr-3 rounded-lg font-normal text-aquamarine-50 shadow-2xl self-end hover:text-pink-600 focus:shadow-inner">Add</button>}
