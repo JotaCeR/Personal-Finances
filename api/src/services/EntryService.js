@@ -23,7 +23,7 @@ class EntryService {
                 }
             };
 
-            // console.log("Entry to build on DAO:", builtEntry);
+            console.log("Entry to build on DAO:", builtEntry);
 
             let insertedEntry = await EntryDAO.createEntry(builtEntry, entryKeys);
             insertedEntry = insertedEntry.rows[0];

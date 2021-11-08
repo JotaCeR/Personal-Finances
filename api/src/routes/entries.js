@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const entryController = require('../controllers/entries');
+const entryMiddlewares = require('../middlewares/entry');
 
 const router = Router();
 
@@ -25,7 +26,7 @@ router.get('/all', entryController.getAll);
 router.get('/one/:id', entryController.getOne);
 
 // post new Entry route
-router.post('/new', entryController.addEntry);
+router.post('/new', [entryMiddlewares.purgeEntryBody], entryController.addEntry);
 
 // put existing Entry route
 router.put('/update/:id', entryController.modifyEntry);
