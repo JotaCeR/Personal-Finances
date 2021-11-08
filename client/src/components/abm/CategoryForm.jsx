@@ -42,6 +42,7 @@ export default function CategoryForm() {
             }} >
                 <div className="w-full flex flex-col justify-start items-center my-3.5">
                     <h4 className="glob-sel text-lightblue-600 text-xl font-sub-title self-start mb-3">Name:</h4>
+                    {category.name === "" ? <p className="bg-pink-600 rounded py-1 px-2 mt-3 font-normal text-sm text-grey-200">Please, write a name for the new category...</p> : null}
                     <input className="font-normal text-grey-600 text-md my-1 focus:outline-none rounded glob-sel" name="name" type="text" placeholder="Category name..." value={category.name} onChange={(e) => handleChange(e)} />
                 </div>
                 {category.name === "" || category.name === undefined || category.name === null ? <button className="glob-sel bg-grey-800 px-4 py-2 rounded-lg font-normal text-grey-500 self-end shadow-inner" type="submit" disabled>Add</button> : <button className="glob-sel bg-forest-700 px-4 py-2 rounded-lg font-normal text-aquamarine-50 shadow-2xl self-end hover:text-pink-600 focus:shadow-inner" type="submit" disabled>Add</button>}
