@@ -34,7 +34,7 @@ export default function CategoryDisplay() {
     return (
         <div className="font-normal glob-sel" >
             <ul>
-                {Array.isArray(categories) ? categories.map((category) => <li className="glob-sel text-grey-900 font-extrabold" key={category.id}>{category.name} <button className="delBut glob-sel text-pink-400 hover:text-lightblue-200" type="button" onClick={(e) => handleDelete(e, category.name, category.id)} ><Xbut size="14" /></button></li>) : <div className="font-normal text-xl font-semibold leading-5 text-lightblue-600">{categories}</div>}
+                {Array.isArray(categories) ? categories.map((category) => <li className="glob-sel text-grey-900 font-extrabold" key={category.id}>{category.name} <button className="delBut glob-sel text-pink-400 hover:text-lightblue-200" type="button" onClick={(e) => handleDelete(e, category.name, category.id)} ><Xbut size="14" /></button></li>) : <div className="font-normal text-xl font-semibold leading-5 text-lightblue-600 glob-sel">{categories}</div>}
             </ul>
         </div>
     )

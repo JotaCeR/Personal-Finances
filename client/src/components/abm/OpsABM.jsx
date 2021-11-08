@@ -53,8 +53,8 @@ export default function ABM() {
                             </ul>
                         </div>
                     </div>
-                    <div className="bg-forest-300 shadow-2xl border-2 border-forest-200 flex flex-col justify-start items-center p-4 overflow-y-scroll mb-8 scrollbar scrollbar-thumb-pink-500 scrollbar-track-pink-900">
-                        <h4 className="font-sub-title text-2xl text-pink-700 self-center">Available Categories</h4>
+                    <div className="bg-forest-300 shadow-2xl border-2 border-forest-200 flex flex-col justify-start items-center p-4 overflow-y-scroll mb-8 scrollbar scrollbar-thumb-pink-500 scrollbar-track-pink-900 max-h-96">
+                        <h4 className="glob-sel font-sub-title text-2xl text-pink-700 self-center">Available Categories</h4>
                         <CategoryDisplay />
                     </div>
                 </div>
