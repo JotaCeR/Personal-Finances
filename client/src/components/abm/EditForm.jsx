@@ -40,7 +40,7 @@ export default function EditForm({id, reason, amount, date, categories}) {
             data: {category: e.target.name}
         });
 
-        window.alert(`${e.target.name} relation with entry: ${reason} deleted`);
+        // window.alert(`${e.target.name} relation with entry: ${reason} deleted`);
 
         dispatch(getEditForm(null));
         dispatch(getAddEntries());
