@@ -25,6 +25,20 @@ class UserService {
             console.error(e);
         };
     }
+
+    async findUser(email) {
+        try {
+            const search = await UserDAO.findUser([email]);
+
+            if (search.length > 0) {
+                return true;
+            } else {
+                return false;
+            };
+        } catch (e) {
+            console.error(e);
+        }
+    }
 };
 
 module.exports = new UserService();

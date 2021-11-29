@@ -5,6 +5,7 @@ class UserDAO{
     constructor() {
         this.newUserQuery = "INSERT INTO users(name, password, email) VALUES($1, $2, $3) RETURNING id";
         this.deleteUserQuery = "DELETE FROM users WHERE id=$1 RETURNING name";
+        this.findUserQuery = "SELECT * FROM users WHERE email=$1";
     }
 
     async createUser(values) {
@@ -18,6 +19,15 @@ class UserDAO{
     async deleteUser(id) {
         try {
             return await db.query(this.deleteUserQuery, id);
+        } catch (e) {
+            console.error(e);
+        };
+    }
+
+    async findUser(email) {
+        try {
+            const answer = await db.query(this.findUserQuery, email);
+            return answer.rows;
         } catch (e) {
             console.error(e);
         };

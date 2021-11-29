@@ -14,7 +14,7 @@ async function buildUser() {
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         name VARCHAR(50) NOT NULL,
         password VARCHAR(50) NOT NULL,
-        email VARCHAR(50) NOT NULL,
+        email VARCHAR(50) NOT NULL UNIQUE,
         role user_roles NOT NULL DEFAULT 'client'
     );
     `;
