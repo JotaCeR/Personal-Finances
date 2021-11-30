@@ -27,6 +27,7 @@ class UserDAO{
     async findUser(email) {
         try {
             const answer = await db.query(this.findUserQuery, email);
+            console.log(`DAO level search user by email: ${answer.rows}`)
             return answer.rows;
         } catch (e) {
             console.error(e);

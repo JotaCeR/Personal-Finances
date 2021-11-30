@@ -15,7 +15,7 @@ async function buildUser() {
         name VARCHAR(50) NOT NULL,
         password VARCHAR(50) NOT NULL,
         email VARCHAR(50) NOT NULL UNIQUE,
-        role user_roles NOT NULL DEFAULT 'client'
+        role user_roles DEFAULT 'client' NOT NULL
     );
     `;
 

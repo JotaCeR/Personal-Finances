@@ -29,6 +29,7 @@ class UserService {
     async findUser(email) {
         try {
             const search = await UserDAO.findUser([email]);
+            console.log(`Service email search: ${search}`);
 
             if (search.length > 0) {
                 return true;

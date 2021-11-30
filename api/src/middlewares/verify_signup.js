@@ -4,7 +4,9 @@ const toolkit = require('../toolkit');
 const verify_email = async (req, res, next) => {
     try {
         const { email } = req.body;
+        console.log(email);
         const existing_email = await UserService.findUser(email);
+        console.log(existing_email);
 
         if (existing_email) {
             return res.status(400).send(toolkit.existing_user);
@@ -35,7 +37,8 @@ const verify_password = async (req, res, next) => {
           ) {
               return res.status(400).send(toolkit.invalid_password);
           }
-
+          
+          next();
     } catch (e) {
         console.error(e);
     }

@@ -16,6 +16,18 @@ const createNewUser = async (req, res) => {
     }
 };
 
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await UserService.deleteUser(id);
+
+        res.status(201).json(result.rows);
+    } catch (e) {
+        console.error(e);
+    }
+};
+
 module.exports = {
     createNewUser,
+    deleteUser,
 };
