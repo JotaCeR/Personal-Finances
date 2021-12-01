@@ -40,6 +40,19 @@ class UserService {
             console.error(e);
         }
     }
+
+    async updateUser(update, values, id) {
+        try {
+            for (const prop in update) {
+                const query_values = [update[prop], id]
+                if (values.includes(prop)) {
+                    await UserDAO.updateUser(prop, query_values);
+                };
+            };
+        } catch (e) {
+            console.error(e);
+        }
+    }
 };
 
 module.exports = new UserService();

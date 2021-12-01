@@ -8,4 +8,6 @@ router.post('/', [signupMiddleware.verify_email, signupMiddleware.verify_passwor
 
 router.delete('/delete/:id', usersController.deleteUser);
 
+router.put('/:id', usersController.updateUser);
+
 module.exports = router;
