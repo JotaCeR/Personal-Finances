@@ -6,6 +6,7 @@ class UserDAO{
         this.newUserQuery = "INSERT INTO users(name, password, email) VALUES($1, $2, $3) RETURNING id";
         this.deleteUserQuery = "DELETE FROM users WHERE id=$1 RETURNING name";
         this.findUserQuery = "SELECT * FROM users WHERE email=$1";
+        this.getPasswordQuery = "SELECT password FROM users WHERE id=$1"
         this.updateName = "UPDATE users SET name=$1 WHERE id=$2";
         this.updatePassword = "";
         this.updateEmail = "UPDATE users SET email=$1 WHERE id=$2";
@@ -31,11 +32,24 @@ class UserDAO{
     async findUser(email) {
         try {
             const answer = await db.query(this.findUserQuery, email);
-            console.log(`DAO level search user by email: ${answer.rows}`)
-            return answer.rows;
+
+            console.log(answer.rows)
+            
+            if (answer.rows && answer.rows.length > 0) return answer.rows[0]
+
+            return null
         } catch (e) {
             console.error(e);
         };
+    }
+    
+    async getPasswordById(values) {
+        try {
+            const answer = await db.query(this.getPasswordQuery, values);
+            return answer.rows[0].password;
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     async updateUser(type, values) {

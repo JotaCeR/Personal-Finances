@@ -39,8 +39,49 @@ const updateUser = async (req, res) => {
     }
 };
 
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const check = await UserService.findUser(email);
+
+        console.log(check)
+
+        if (!check) {
+            return res.status(401).send("No user exists with this email!");
+        };
+
+        const validate = await UserService.verifyPassword(password, check.id);
+
+        console.log('Pass validation:')
+        console.log(validate);
+
+        if (!validate) {
+            return res.status(400).send("Invalid password provided!")
+        };
+
+        const token = UserService.loginUser(check.id);
+
+        console.log("Not crash ctrl")
+
+        res.status(200).send(token);
+    } catch (e) {
+        console.log('Login Ctrl')
+        console.error(e);
+    }
+};
+
+const logoutUser = async (req, res) => {
+    try {
+
+    } catch (e) {
+        console.error(e);
+    }
+};
+
 module.exports = {
     createNewUser,
     deleteUser,
     updateUser,
+    loginUser,
+    logoutUser,
 };

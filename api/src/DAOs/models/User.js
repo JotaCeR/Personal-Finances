@@ -13,7 +13,7 @@ async function buildUser() {
     CREATE TABLE IF NOT EXISTS users (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         name VARCHAR(50) NOT NULL,
-        password VARCHAR(50) NOT NULL,
+        password VARCHAR(5000000) NOT NULL,
         email VARCHAR(50) NOT NULL UNIQUE,
         role user_roles DEFAULT 'client' NOT NULL
     );

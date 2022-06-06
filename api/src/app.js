@@ -13,13 +13,6 @@ server.use(express.urlencoded({ extended: true, limit: '50mb' }));
 server.use(express.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
-// server.use((req, res, next) => {
-//     res.header('Acess-Control-Allow-Origin', 'http://localhost:3000');
-//     res.header('Acess-Control-Allow-Credentials', 'true');
-//     res.header('Acess-Control-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//     res.header('Aceess-Control-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-//     next();
-// });
 server.use(cors());
 
 server.use('/', routes);
